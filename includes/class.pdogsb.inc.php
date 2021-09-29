@@ -102,7 +102,18 @@ class PdoGsb
         $requetePrepare->execute();
         return $requetePrepare->fetch();
     }
-
+    
+    public function getUtilisateur()
+    {
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+                'SELECT visiteur.nom AS nom, visiteur.prenom AS prenom '
+                . 'FROM visiteur '
+                . ''
+                );
+        $requetePrepare->execute();
+        return $requetePrepare->fetchAll();
+    }
+    
     public function getInfosComptable($login)
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
