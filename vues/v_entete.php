@@ -1,17 +1,17 @@
 <?php
 /**
- * Vue Entête
+ * Vue EntÃªte
  *
  * PHP Version 7
  *
  * @category  PPE
  * @package   GSB
- * @author    Réseau CERTA <contact@reseaucerta.org>
- * @author    José GIL <jgil@ac-nice.fr>
- * @copyright 2017 Réseau CERTA
- * @license   Réseau CERTA
+ * @author    RÃ©seau CERTA <contact@reseaucerta.org>
+ * @author    JosÃ© GIL <jgil@ac-nice.fr>
+ * @copyright 2017 RÃ©seau CERTA
+ * @license   RÃ©seau CERTA
  * @version   GIT: <0>
- * @link      http://www.reseaucerta.org Contexte « Laboratoire GSB »
+ * @link      http://www.reseaucerta.org Contexte Â« Laboratoire GSB Â»
  */
 ?>
 <!DOCTYPE html>
@@ -62,7 +62,7 @@
                                 </a>
                             </li>
                             <li <?php if ($uc == 'validationFrais') { ?>class="active"<?php } ?>>
-                                <a href="index.php?uc=etatFrais&action=selectionnerMois">
+                                <a href="index.php?uc=validationFrais">
                                     <span class="glyphicon glyphicon-list-alt"></span>
                                     Validation des fiches de frais
                                 </a>
