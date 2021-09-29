@@ -63,8 +63,14 @@
                             </li>
                             <li <?php if ($uc == 'validationFrais') { ?>class="active"<?php } ?>>
                                 <a href="index.php?uc=validationFrais">
-                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    <span class="glyphicon glyphicon-ok-circle"></span>
                                     Validation des fiches de frais
+                                </a>
+                            </li>
+                            <li <?php if ($uc == 'suiviFrais') { ?>class="active"<?php } ?>>
+                                <a href="index.php?uc=suiviFrais">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                    Suivi du paiment des fiches de frais
                                 </a>
                             </li>
                             <li 

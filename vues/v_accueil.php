@@ -42,6 +42,14 @@
                            class="btn btn-primary btn-lg" role="button">
                             <span class="glyphicon glyphicon-list-alt"></span>
                             <br>Afficher mes fiches de frais</a>
+                        <a href="index.php?uc=validationFrais"
+                           class="btn btn-success btn-lg" role="button">
+                            <span class="glyphicon glyphicon-ok-circle"></span>
+                            <br>Validation des fiches de frais</a>
+                        <a href="index.php?uc=suiviFrais"
+                           class="btn btn-primary btn-lg" role="button">
+                            <span class="glyphicon glyphicon-search"></span>
+                            <br>Suivi du paiment des fiches de frais</a>
                     </div>
                 </div>
             </div>
