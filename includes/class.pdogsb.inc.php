@@ -247,6 +247,30 @@ class PdoGsb
         return $requetePrepare->fetchAll();
     }
 
+    public function getCodeAuthentificationDoubleFacteur($id)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT visiteur.codeauth '
+            . 'FROM visiteur '
+            . 'WHERE visiteur.id = :unIdVisiteur '
+        );
+        $requetePrepare->bindParam(':unIdVisiteur', $id, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return $requetePrepare->fetch();
+    }
+    
+    public function majCodeAuthentificationDoubleFacteur($codeAuth, $id)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'UPDATE visiteur '
+            . 'SET visiteur.codeauth = :unCodeAuth '
+            . 'WHERE visiteur.id = :unIdVisiteur '
+        );
+        $requetePrepare->bindParam(':unCodeAuth', $codeAuth, PDO::PARAM_INT);
+        $requetePrepare->bindParam(':unIdVisiteur', $id, PDO::PARAM_STR);
+        $requetePrepare->execute();
+    }
+    
     /**
      * Met à jour la table ligneFraisForfait
      * Met à jour la table ligneFraisForfait pour un visiteur et
