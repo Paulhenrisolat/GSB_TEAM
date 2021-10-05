@@ -73,6 +73,12 @@
                                     Suivi du paiment des fiches de frais
                                 </a>
                             </li>
+                            <li <?php if ($uc == 'mail') { ?>class="active"<?php } ?>>
+                                <a href="index.php?uc=mail">
+                                    <span class="glyphicon glyphicon-envelope"></span>
+                                    Mail
+                                </a>
+                            </li>
                             <li 
                             <?php if ($uc == 'deconnexion') { ?>class="active"<?php } ?>>
                                 <a href="index.php?uc=deconnexion&action=demandeDeconnexion">

@@ -50,6 +50,10 @@
                            class="btn btn-primary btn-lg" role="button">
                             <span class="glyphicon glyphicon-search"></span>
                             <br>Suivi du paiment des fiches de frais</a>
+                        <a href="index.php?uc=verifMail"
+                           class="btn btn-primary btn-lg" role="button">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            <br>[TestVerifMail]</a>
                     </div>
                 </div>
             </div>
