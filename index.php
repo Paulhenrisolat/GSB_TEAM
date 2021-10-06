@@ -33,6 +33,9 @@ case 'connexion':
 case 'accueil':
     include 'controleurs/c_accueil.php';
     break;
+case 'testverifmail': //a2f
+    include 'controleurs/c_verifMail.php';
+    break;
 case 'gererFrais':
     include 'controleurs/c_gererFrais.php';
     break;

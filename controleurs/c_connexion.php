@@ -34,6 +34,7 @@ case 'valideConnexion':
         $prenom = $visiteur['prenom'];
         connecter($id, $nom, $prenom);
         header('Location: index.php');
+        include'vues/v_verifMail.php';
     }
     elseif (password_verify($mdp, $pdo->getMotDePasseComptable($login))) {
         $id = $comptable['id'];
@@ -41,6 +42,7 @@ case 'valideConnexion':
         $prenom = $comptable['prenom'];
         connecter($id, $nom, $prenom);
         header('Location: index.php');
+        include'vues/v_verifMail.php';
     }
     else {
         ajouterErreur('Login ou mot de passe incorrect');
@@ -48,6 +50,22 @@ case 'valideConnexion':
         include 'vues/v_connexion.php';
     }
     break;
+    
+case 'verifmail':
+    //code a2f
+    $codeRand = rand(0,9999);
+    //destinataire
+    $to = "Papercut@papercut.com";
+    //sujet
+    $subject = "A2f GSB";
+    //msg
+    $message = "Vérification d'identité de ".filter_input(INPUT_POST, 'login', FILTER_SANITIZE_STRING)."\nCode : ".$codeRand; //
+    //entete
+    $headers =array('From'=> 'GSB@gmail.com');
+    mail($to,$subject,$message, $headers);
+    include'vues/v_verifMail.php';
+    break;
+
 default:
     include 'vues/v_connexion.php';
     break;

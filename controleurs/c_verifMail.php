@@ -1,9 +1,18 @@
 <?php
-
 include'vues/v_verifMail.php';
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
+$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+
+switch ($action) {
+case'testverifmail':
+    $mdprand = filter_input(INPUT_POST, 'mdprand');
+    if($mdprand == $codeRand)
+    {
+        include 'controleurs/c_accueil.php';
+    }
+    else
+    {
+        include 'v_erreurs.php';
+    }
+    break;
+}
