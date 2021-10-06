@@ -1,11 +1,9 @@
-<?php
 
-//fiches frais des users
-
-include'vues/v_ficheFraisUser.php';
-
-    $value = $pdo->GetUtilisateur();
-    foreach()
+<label for="exampleDataList" class="form-label">Liste des utilisateurs</label>
+<input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Utilisateur">
+<datalist id="datalistOptions">
+    <?php 
+    foreach($pdo->GetUtilisateur() as &$value)
     {
         ?> <option value= <?php $i ?> > <?php echo $value[0], '&nbsp;', $value[1] ;
         $i++;

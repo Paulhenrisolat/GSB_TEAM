@@ -1,8 +1,8 @@
 <?php
 
-function getLesVisiteurs($pdo)
+function getLesUtilisateurs($pdo)
 {
-    $req = 'select visiteur.id as id, visiteur.mdp as mdp from visiteur';
+    $req = 'SELECT utilisateur.id AS id, utilisateur.mdp AS mdp FROM utilisateur';
     $res = $pdo->query($req);
     $lesLignes = $res->fetchAll();
     return $lesLignes;
@@ -11,10 +11,10 @@ function getLesVisiteurs($pdo)
 $pdo = new PDO('mysql:host=localhost;dbname=gsb_frais', 'root', '');
 $pdo->query('SET CHARACTER SET utf8');
 
-$lesVisiteurs = getLesVisiteurs($pdo);
-foreach($lesVisiteurs as $unVisiteur)
+$lesUtilisateurs = getLesUtilisateurs($pdo);
+foreach($lesUtilisateurs as $unUtilisateur)
     {
-    $hashMdp = password_hash($unVisiteur['mdp'], PASSWORD_DEFAULT);
-    $req = "UPDATE visiteur SET mdp='" . $hashMdp . "' WHERE id='" . $unVisiteur['id'] . "';";
+    $hashMdp = password_hash($unUtilisateur['mdp'], PASSWORD_DEFAULT);
+    $req = "UPDATE utilisateur SET mdp='" . $hashMdp . "' WHERE id='" . $unUtilisateur['id'] . "';";
     $pdo->exec($req);
     }
