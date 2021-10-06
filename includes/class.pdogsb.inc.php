@@ -93,58 +93,48 @@ class PdoGsb
     public function getInfosVisiteur($login)
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
-            'SELECT visiteur.id AS id, visiteur.nom AS nom, '
-            . 'visiteur.prenom AS prenom '
-            . 'FROM visiteur '
-            . 'WHERE visiteur.login = :unLogin'
+            'SELECT utilisateur.id AS id, utilisateur.nom AS nom, '
+            . 'utilisateur.prenom AS prenom '
+            . 'FROM utilisateur '
+            . 'WHERE utilisateur.login = :unLogin AND utilisateur.statut = :leStatut'
+        );
+        $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':leStatut', 'Visiteur', PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return $requetePrepare->fetch();
+    }
+    
+    public function getInfosUtilisateur($login)
+    {
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+            'SELECT utilisateur.id AS id, utilisateur.nom AS nom, '
+            . 'utilisateur.prenom AS prenom, utilisateur.statut AS statut '
+            . 'FROM utilisateur '
+            . 'WHERE utilisateur.login = :unLogin'
         );
         $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
         $requetePrepare->execute();
         return $requetePrepare->fetch();
     }
     
-    public function getUtilisateur()
+    public function getVisiteur()
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
-                'SELECT visiteur.nom AS nom, visiteur.prenom AS prenom '
-                . 'FROM visiteur '
-                . ''
-                );
-        $requetePrepare->execute();
-        return $requetePrepare->fetchAll();
-    }
-    
-    public function getInfosComptable($login)
-    {
-        $requetePrepare = PdoGsb::$monPdo->prepare(
-            'SELECT comptable.id AS id, comptable.nom AS nom, '
-            . 'comptable.prenom AS prenom '
-            . 'FROM comptable '
-            . 'WHERE comptable.login = :unLogin'
+            'SELECT utilisateur.nom AS nom, utilisateur.prenom AS prenom '
+            . 'FROM utilisateur '
+            . 'WHERE utilisateur.statut = :leStatut'
         );
-        $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':leStatut', 'Visiteur', PDO::PARAM_STR);
         $requetePrepare->execute();
         return $requetePrepare->fetch();
     }
     
-    public function getMotDePasseVisiteur($login)
+    public function getMotDePasseUtilisateur($login)
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
-            'SELECT visiteur.mdp AS mdp '
-            . 'FROM visiteur '
-            . 'WHERE visiteur.login = :unLogin'
-        );
-        $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
-        $requetePrepare->execute();
-        return $requetePrepare->fetch()['mdp'];
-    }
-    
-    public function getMotDePasseComptable($login)
-    {
-        $requetePrepare = PdoGsb::$monPdo->prepare(
-            'SELECT comptable.mdp AS mdp '
-            . 'FROM comptable '
-            . 'WHERE comptable.login = :unLogin'
+            'SELECT utilisateur.mdp AS mdp '
+            . 'FROM utilisateur '
+            . 'WHERE utilisateur.login = :unLogin'
         );
         $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
         $requetePrepare->execute();
@@ -247,27 +237,27 @@ class PdoGsb
         return $requetePrepare->fetchAll();
     }
 
-    public function getCodeAuthentificationDoubleFacteur($id)
+    public function getCodeA2F($id)
     {
         $requetePrepare = PdoGSB::$monPdo->prepare(
-            'SELECT visiteur.codeauth '
-            . 'FROM visiteur '
-            . 'WHERE visiteur.id = :unIdVisiteur '
+            'SELECT utilisateur.codeauthentification '
+            . 'FROM utilisateur '
+            . 'WHERE utilisateur.id = :unIdUtilisateur '
         );
-        $requetePrepare->bindParam(':unIdVisiteur', $id, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unIdUtilisateur', $id, PDO::PARAM_STR);
         $requetePrepare->execute();
         return $requetePrepare->fetch();
     }
     
-    public function majCodeAuthentificationDoubleFacteur($codeAuth, $id)
+    public function majCodeA2F($codeAuth, $id)
     {
         $requetePrepare = PdoGSB::$monPdo->prepare(
-            'UPDATE visiteur '
-            . 'SET visiteur.codeauth = :unCodeAuth '
-            . 'WHERE visiteur.id = :unIdVisiteur '
+            'UPDATE utilisateur '
+            . 'SET utilisateur.codeauthentification = :unCodeAuth '
+            . 'WHERE utilisateur.id = :unIdUtilisateur '
         );
         $requetePrepare->bindParam(':unCodeAuth', $codeAuth, PDO::PARAM_INT);
-        $requetePrepare->bindParam(':unIdVisiteur', $id, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unIdUtilisateur', $id, PDO::PARAM_STR);
         $requetePrepare->execute();
     }
     
