@@ -45,12 +45,6 @@ case 'validationFrais':
 case 'suiviFrais':
     include 'controleurs/c_suiviFrais.php';
     break;
-case 'mail':
-    include 'controleurs/c_mail.php';
-    break;
-case 'verifMail':
-    include 'controleurs/c_verifMail.php';
-    break;
 case 'deconnexion':
     include 'controleurs/c_deconnexion.php';
     break;

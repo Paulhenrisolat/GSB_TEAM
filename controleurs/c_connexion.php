@@ -32,13 +32,35 @@ case 'valideConnexion':
         $nom = $utilisateur['nom'];
         $prenom = $utilisateur['prenom'];
         $statut = $utilisateur['statut'];
-        connecter($id, $nom, $prenom);
-        header('Location: index.php');
+        connecter($id, $nom, $prenom, $statut);
+
+        $email = 'test@swiss-galaxy.com';
+        $subject = "A2F GSB";
+        $headers = array('From' => 'noreply@swiss-galaxy.com');
+        $code = rand(1000, 9999);
+        $pdo->setCodeA2F($code, $_SESSION['idUtilisateur']);
+        $message = "Vérification d'identité\nCode : " . $code;
+        mail($email, $subject, $message, $headers);
+        include 'vues/v_verifA2F.php';
     }
     else {
         ajouterErreur('Login ou mot de passe incorrect');
         include 'vues/v_erreurs.php';
         include 'vues/v_connexion.php';
+    }
+    break; 
+case 'verifA2F':
+    $codeA2F = filter_input(INPUT_POST, 'code', FILTER_SANITIZE_STRING);
+    if($codeA2F == $pdo->getCodeA2F['idUtilisateur'])
+    {
+        connecterA2F($codeA2F);
+        header('Location: index.php');
+    }
+    else
+    {
+        ajouterErreur('Code A2F incorrect');
+        include 'vues/v_erreurs.php';
+        include 'vues/v_verifA2F.php';
     }
     break;
 default:
