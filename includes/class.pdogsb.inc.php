@@ -108,8 +108,8 @@ class PdoGsb
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
             'SELECT utilisateur.id AS id, utilisateur.nom AS nom, '
-            . 'utilisateur.prenom AS prenom, utilisateur.statut AS statut '
-            . ' utilisateur.email AS email '
+            . 'utilisateur.prenom AS prenom, utilisateur.statut AS statut, '
+            . 'utilisateur.email AS email '
             . 'FROM utilisateur '
             . 'WHERE utilisateur.login = :unLogin'
         );
@@ -241,7 +241,7 @@ class PdoGsb
     public function getCodeA2F($id)
     {
         $requetePrepare = PdoGSB::$monPdo->prepare(
-            'SELECT utilisateur.codea2f AS codea2f'
+            'SELECT utilisateur.codea2f AS codea2f '
             . 'FROM utilisateur '
             . 'WHERE utilisateur.id = :unId'
         );
