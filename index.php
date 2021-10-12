@@ -33,9 +33,6 @@ case 'connexion':
 case 'accueil':
     include 'controleurs/c_accueil.php';
     break;
-case 'testverifmail': //a2f
-    include 'controleurs/c_verifMail.php';
-    break;
 case 'gererFrais':
     include 'controleurs/c_gererFrais.php';
     break;
@@ -47,12 +44,6 @@ case 'validationFrais':
     break;
 case 'suiviFrais':
     include 'controleurs/c_suiviFrais.php';
-    break;
-case 'mail':
-    include 'controleurs/c_mail.php';
-    break;
-case 'verifMail':
-    include 'controleurs/c_verifMail.php';
     break;
 case 'deconnexion':
     include 'controleurs/c_deconnexion.php';
