@@ -21,7 +21,7 @@
  */
 function estConnecte()
 {
-    return isset($_SESSION['idUtilisateur']);
+    return isset($_SESSION['idUtilisateur']) && isset($_SESSION['codeA2F']);
 }
 
 /**
@@ -33,12 +33,17 @@ function estConnecte()
  *
  * @return null
  */
-function connecter($idUtilisateur, $nom, $prenom)
+function connecter($id, $nom, $prenom, $statut)
 {
-    $_SESSION['idUtilisateur'] = $idUtilisateur;
+    $_SESSION['idUtilisateur'] = $id;
     $_SESSION['nom'] = $nom;
     $_SESSION['prenom'] = $prenom;
     $_SESSION['statut'] = $statut;
+}
+
+function connecterA2F($codeA2F)
+{
+    $_SESSION['codeA2F'] = $codeA2F;
 }
 
 /**

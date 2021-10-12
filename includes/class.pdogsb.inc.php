@@ -109,6 +109,7 @@ class PdoGsb
         $requetePrepare = PdoGsb::$monPdo->prepare(
             'SELECT utilisateur.id AS id, utilisateur.nom AS nom, '
             . 'utilisateur.prenom AS prenom, utilisateur.statut AS statut '
+            . ' utilisateur.email AS email '
             . 'FROM utilisateur '
             . 'WHERE utilisateur.login = :unLogin'
         );
@@ -240,24 +241,36 @@ class PdoGsb
     public function getCodeA2F($id)
     {
         $requetePrepare = PdoGSB::$monPdo->prepare(
-            'SELECT utilisateur.codeauthentification '
+            'SELECT utilisateur.codea2f AS codea2f'
             . 'FROM utilisateur '
-            . 'WHERE utilisateur.id = :unIdUtilisateur '
+            . 'WHERE utilisateur.id = :unId'
         );
-        $requetePrepare->bindParam(':unIdUtilisateur', $id, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unId', $id, PDO::PARAM_STR);
         $requetePrepare->execute();
-        return $requetePrepare->fetch();
+        return $requetePrepare->fetch()['codea2f'];
     }
     
-    public function majCodeA2F($codeAuth, $id)
+    public function getEmailUtilisateur($id)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT utilisateur.email AS email '
+            . 'FROM utilisateur '
+            . 'WHERE utilisateur.id = :unId'
+        );
+        $requetePrepare->bindParam(':unId', $id, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return $requetePrepare->fetch()['email'];
+    }
+    
+    public function setCodeA2F($codeAuth, $id)
     {
         $requetePrepare = PdoGSB::$monPdo->prepare(
             'UPDATE utilisateur '
-            . 'SET utilisateur.codeauthentification = :unCodeAuth '
-            . 'WHERE utilisateur.id = :unIdUtilisateur '
+            . 'SET utilisateur.codea2f = :unCode '
+            . 'WHERE utilisateur.id = :unId'
         );
-        $requetePrepare->bindParam(':unCodeAuth', $codeAuth, PDO::PARAM_INT);
-        $requetePrepare->bindParam(':unIdUtilisateur', $id, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unCode', $codeAuth, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unId', $id, PDO::PARAM_STR);
         $requetePrepare->execute();
     }
     
