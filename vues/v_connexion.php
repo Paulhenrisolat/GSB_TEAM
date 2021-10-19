@@ -23,7 +23,7 @@
             </div>
             <div class="panel-body">
                 <form role="form" method="post" 
-                      action="index.php?uc=connexion&action=verifmail"> <!-- valideConnexion | verifmail -->
+                      action="index.php?uc=connexion&action=valideConnexion"> <!-- valideConnexion | verifmail -->
                     <fieldset>
                         <div class="form-group">
                             <div class="input-group">
