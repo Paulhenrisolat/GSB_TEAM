@@ -13,7 +13,6 @@
  * @version   GIT: <0>
  * @link      http://www.reseaucerta.org Contexte Â« Laboratoire GSB Â»
  */
-
 require_once 'includes/fct.inc.php';
 require_once 'includes/class.pdogsb.inc.php';
 session_start();
@@ -32,6 +31,9 @@ case 'connexion':
     break;
 case 'accueil':
     include 'controleurs/c_accueil.php';
+    if($estConnecte == estConnecte()){
+        PopUpConnexion();
+    }
     break;
 case 'gererFrais':
     include 'controleurs/c_gererFrais.php';
@@ -50,3 +52,9 @@ case 'deconnexion':
     break;
 }
 require 'vues/v_pied.php';
+
+
+function PopUpConnexion(){
+    $message='Validation réussi !';
+    echo '<script type="text/javascript">window.alert("'.$message.'");</script>';
+}
