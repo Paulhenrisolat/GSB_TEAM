@@ -24,10 +24,12 @@
     <button class="btn btn-success" type="submit">Valider</button>
     <button class="btn btn-danger" type="reset">Réinitialiser</button>
     
+    <?php $nom = $_SESSION['nomprenom']; 
+          $info = explode(";",$nom); ?>
 <form method="post" action="index.php?uc=validationFrais">
         <p>
             <select name="IdUtilisateur">
-                
+                <option value= 1 > <?php $info; ?> </option>
       <input type="submit" value="Envoyer" />
            </p>
 </form>

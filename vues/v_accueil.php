@@ -19,10 +19,9 @@
 ?>
 <div id="accueil">
     <h2>
-        Gestion des frais<small> - Visiteur : 
-            <?php
-            echo $_SESSION['prenom'] . ' ' . $_SESSION['nom']
-            ?></small>
+        Gestion des frais<small> -
+        <?php echo $_SESSION['statut'] . " : " . $_SESSION['prenom'] . ' ' . $_SESSION['nom']; ?>
+        </small>
     </h2>
 </div>
 <div class="row">
@@ -37,6 +36,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
+                        <?php if ($_SESSION['statut'] == 'Visiteur') { ?>
                         <a href="index.php?uc=gererFrais&action=saisirFrais"
                            class="btn btn-success btn-lg" role="button">
                             <span class="glyphicon glyphicon-pencil"></span>
@@ -45,6 +45,7 @@
                            class="btn btn-primary btn-lg" role="button">
                             <span class="glyphicon glyphicon-list-alt"></span>
                             <br>Afficher mes fiches de frais</a>
+                        <?php } else { ?>
                         <a href="index.php?uc=validationFrais"
                            class="btn btn-success btn-lg" role="button">
                             <span class="glyphicon glyphicon-ok-circle"></span>
@@ -52,11 +53,12 @@
                         <a href="index.php?uc=suiviFrais"
                            class="btn btn-primary btn-lg" role="button">
                             <span class="glyphicon glyphicon-search"></span>
-                            <br>Suivi du paiment des fiches de frais</a>
-                        <a href="index.php?uc=verifMail"
+                            <br>Suivi du paiement des fiches de frais</a>
+                        <?php } ?>
+<!--                    <a href="index.php?uc=verifMail"
                            class="btn btn-primary btn-lg" role="button">
                             <span class="glyphicon glyphicon-eye-open"></span>
-                            <br>[TestVerifMail]</a>
+                            <br>[TestVerifMail]</a>-->
                     </div>
                 </div>
             </div>

@@ -507,6 +507,40 @@ class PdoGsb
         return $lesMois;
     }
 
+    public function getLesFichesVA()
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT utilisateur.nom AS nom, '
+            . 'utilisateur.prenom AS prenom, '
+            . 'fichefrais.mois AS mois '
+            . 'FROM utilisateur '
+            . 'INNER JOIN fichefrais ON utilisateur.id = fichefrais.idvisiteur '
+            . 'WHERE visiteur.statut = :unStatut AND fichefrais.idetat = :idEtat '
+            . 'ORDER BY utilisateur.nom asc, fichefrais.mois desc'
+        );
+        $requetePrepare->bindValue(':unStatut', 'Visiteur', PDO::PARAM_STR);
+        $requetePrepare->bindValue(':idEtat', 'VA', PDO::PARAM_STR);
+        $requetePrepare->execute();
+        $lesFiches = array();
+        while ($laLigne = $requetePrepare->fetch()) {
+            $mois = $laLigne['mois'];
+            $numAnnee = substr($mois, 0, 4);
+            $numMois = substr($mois, 4, 2);
+            $nomVisiteur = $laLigne['nom'];
+            $prenomVisiteur = $laLigne['prenom'];
+            $lesFiches[] = array(
+                'mois' => array(
+                    'cleMois' => $mois,
+                    'numAnnee' => $numAnnee,
+                    'numMois' => $numMois
+                ),
+                'nomVisiteur' => $nomVisiteur,
+                'prenomVisiteur' => $prenomVisiteur
+            );
+        }
+        return $lesMois;
+    }
+
     /**
      * Retourne les informations d'une fiche de frais d'un visiteur pour un
      * mois donné
@@ -536,7 +570,25 @@ class PdoGsb
         $laLigne = $requetePrepare->fetch();
         return $laLigne;
     }
-
+    
+    public function getLesFichesFrais($etat)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT fichefrais.idetat as idEtat, '
+            . 'fichefrais.datemodif as dateModif,'
+            . 'fichefrais.nbjustificatifs as nbJustificatifs, '
+            . 'fichefrais.montantvalide as montantValide, '
+            . 'etat.libelle as libEtat '
+            . 'FROM fichefrais '
+            . 'INNER JOIN etat ON fichefrais.idetat = etat.id '
+            . 'WHERE idetat = :idEtat'
+        );
+        $requetePrepare->bindParam(':idEtat', $etat, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        $laLigne = $requetePrepare->fetch();
+        return $laLigne;
+    }
+    
     /**
      * Modifie l'état et la date de modification d'une fiche de frais.
      * Modifie le champ idEtat et met la date de modif à aujourd'hui.

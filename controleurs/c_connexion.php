@@ -34,7 +34,7 @@ case 'valideConnexion':
         $statut = $utilisateur['statut'];
         connecter($id, $nom, $prenom, $statut);
 
-        $email = 'test@swiss-galaxy.com';
+        $email = $utilisateur['email'];
         $subject = "A2F GSB";
         $headers = array('From' => 'noreply@swiss-galaxy.com');
         $code = rand(1000, 9999);
