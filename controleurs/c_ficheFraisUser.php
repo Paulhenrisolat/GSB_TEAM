@@ -2,21 +2,20 @@
 
 //fiches frais des users
 
+
+$nom = '';
+foreach ($pdo->getVisiteur() as &$value) {
+   $nom .= $value[0]. '&nbsp;'. $value[1]. ';' ;
+}
+$_SESSION['nomprenom'] = $nom;
+
 include'vues/v_ficheFraisUser.php';
-?>
-<form method="post" action="index.php?uc=validationFrais">
-   <p>
-      <select name="IdUtilisateur">
-          <?php 
-          $i=0;
-    foreach($pdo->GetVisiteur() as &$value)
-    {
-        ?> <option value="<?php$i?>"><?php echo $value[0], '&nbsp;', $value[1] ;
-        $i++;
-    }
-    
+
+
+     /*
     ?>
       <input type="submit" value="Envoyer" />
+      
            </p>
 </form>
 
@@ -29,8 +28,3 @@ include'vues/v_ficheFraisUser.php';
         ?> <option value=<?php$i1?><?php echo $value1;
         $i++;
     }
-
- 
-
-                
-
