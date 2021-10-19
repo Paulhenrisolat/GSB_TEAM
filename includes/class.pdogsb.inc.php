@@ -99,7 +99,7 @@ class PdoGsb
             . 'WHERE utilisateur.login = :unLogin AND utilisateur.statut = :leStatut'
         );
         $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
-        $requetePrepare->bindParam(':leStatut', 'Visiteur', PDO::PARAM_STR);
+        $requetePrepare->bindValue(':leStatut', 'Visiteur', PDO::PARAM_STR);
         $requetePrepare->execute();
         return $requetePrepare->fetch();
     }
@@ -125,9 +125,9 @@ class PdoGsb
             . 'FROM utilisateur '
             . 'WHERE utilisateur.statut = :leStatut'
         );
-        $requetePrepare->bindParam(':leStatut', 'Visiteur', PDO::PARAM_STR);
+        $requetePrepare->bindValue(':leStatut', 'Visiteur', PDO::PARAM_STR);
         $requetePrepare->execute();
-        return $requetePrepare->fetch();
+        return $requetePrepare->fetchAll();
     }
     
     public function getMotDePasseUtilisateur($login)
