@@ -18,8 +18,7 @@
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-qrcode"></i>
                                 </span>
-                                <input class="form-control" placeholder="Code"
-                                       name="code" type="text" maxlength="4">
+                                <input class="form-control" placeholder="Code" name="code" id="code" type="text" maxlength="4">
                             </div>
                         </div>
                         <input class="btn btn-lg btn-success btn-block"
