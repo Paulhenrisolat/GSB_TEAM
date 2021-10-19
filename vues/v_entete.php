@@ -49,6 +49,7 @@
                                     Accueil
                                 </a>
                             </li>
+                            <?php if ($_SESSION['statut'] == 'Visiteur') { ?>
                             <li <?php if ($uc == 'gererFrais') { ?>class="active"<?php } ?>>
                                 <a href="index.php?uc=gererFrais&action=saisirFrais">
                                     <span class="glyphicon glyphicon-pencil"></span>
@@ -61,6 +62,7 @@
                                     Afficher mes fiches de frais
                                 </a>
                             </li>
+                            <?php } else { ?>
                             <li <?php if ($uc == 'validationFrais') { ?>class="active"<?php } ?>>
                                 <a href="index.php?uc=validationFrais">
                                     <span class="glyphicon glyphicon-ok-circle"></span>
@@ -70,9 +72,10 @@
                             <li <?php if ($uc == 'suiviFrais') { ?>class="active"<?php } ?>>
                                 <a href="index.php?uc=suiviFrais">
                                     <span class="glyphicon glyphicon-search"></span>
-                                    Suivi du paiment des fiches de frais
+                                    Suivi du paiement des fiches de frais
                                 </a>
                             </li>
+                            <?php } ?>
                             <li <?php if ($uc == 'mail') { ?>class="active"<?php } ?>>
                                 <a href="index.php?uc=mail">
                                     <span class="glyphicon glyphicon-envelope"></span>
