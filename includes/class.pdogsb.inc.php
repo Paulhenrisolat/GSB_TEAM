@@ -127,7 +127,7 @@ class PdoGsb
         );
         $requetePrepare->bindParam(':leStatut', 'Visiteur', PDO::PARAM_STR);
         $requetePrepare->execute();
-        return $requetePrepare->fetch();
+        return $requetePrepare->fetchAll();
     }
     
     public function getMotDePasseUtilisateur($login)
