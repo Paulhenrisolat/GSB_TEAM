@@ -16,10 +16,14 @@
 ?>
 <div id="accueil">
     <h2>
-        Gestion des frais<small> - Visiteur : 
-            <?php 
-            echo $_SESSION['prenom'] . ' ' . $_SESSION['nom']
-            ?></small>
+        <?php
+        if ($_SESSION['statut'] == 'Visiteur') {
+            echo "Gestion des frais<small> - Visiteur : " . $_SESSION['prenom'] . ' ' . $_SESSION['nom'];
+        }
+        else {
+            echo "Gestion des frais<small> - Comptable : " . $_SESSION['prenom'] . ' ' . $_SESSION['nom'];
+        }
+        ?>
     </h2>
 </div>
 <div class="row">
