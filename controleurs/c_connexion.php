@@ -37,7 +37,7 @@ case 'valideConnexion':
         $email = $utilisateur['email'];
         $subject = "A2F GSB";
         $headers = array('From' => 'noreply@swiss-galaxy.com');
-        $code = rand(1000, 9999);
+        $code = rand(1000, 2000);
         $pdo->setCodeA2F($code, $_SESSION['idUtilisateur']);
         $message = "Vérification d'identité\nCode : " . $code;
         mail($email, $subject, $message, $headers);

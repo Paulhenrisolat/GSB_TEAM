@@ -31,9 +31,9 @@ case 'connexion':
     break;
 case 'accueil':
     include 'controleurs/c_accueil.php';
-    if($estConnecte == estConnecte()){
-        PopUpConnexion();
-    }
+//    if($estConnecte == estConnecte()){
+//        PopUpConnexion();
+//    }
     break;
 case 'gererFrais':
     include 'controleurs/c_gererFrais.php';
