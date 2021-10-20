@@ -10,4 +10,8 @@ UPDATE utilisateur
 SET email = CONCAT(login, "@swiss-galaxy.com");
 
 ALTER TABLE utilisateur
-ADD codeauthentification char(4) DEFAULT NULL;
+ADD codea2f char(6) DEFAULT NULL;
+
+-- À utiliser si le codea2f existe déjà et ne peut contenir que 4 chiffres
+ALTER TABLE utilisateur
+MODIFY codea2f char(6);
