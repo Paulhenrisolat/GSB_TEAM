@@ -1,4 +1,0 @@
-
-function Testpopup() {
-    alert("test");
-}

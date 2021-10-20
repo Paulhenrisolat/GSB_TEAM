@@ -3019,7 +3019,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `dateembauche` date DEFAULT NULL,
   `statut` char(15) DEFAULT 'Visiteur',
   `email` text,
-  `codea2f` char(4) DEFAULT NULL,
+  `codea2f` char(6) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

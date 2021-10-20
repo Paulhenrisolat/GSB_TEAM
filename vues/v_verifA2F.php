@@ -1,6 +1,6 @@
 <?php ?>
 
-<div class="alert alert-info" role="alert">Un email contenant un code à 4 chiffres vous a été envoyé, merci de le saisir ici...</div>
+<div class="alert alert-info" role="alert">Un email contenant un code à 6 chiffres vous a été envoyé, merci de le saisir ici...</div>
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <div class="panel panel-default">
@@ -16,7 +16,7 @@
                                 <span class="input-group-addon">
                                     <i class="glyphicon glyphicon-qrcode"></i>
                                 </span>
-                                <input class="form-control" placeholder="Code" name="code" id="code" type="text" maxlength="4">
+                                <input class="form-control" placeholder="Code" name="code" id="code" type="text" maxlength="6">
                             </div>
                         </div>
                         <input class="btn btn-lg btn-success btn-block"
