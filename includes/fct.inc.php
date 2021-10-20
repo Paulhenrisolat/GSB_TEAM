@@ -39,6 +39,8 @@ function connecter($id, $nom, $prenom, $statut)
     $_SESSION['nom'] = $nom;
     $_SESSION['prenom'] = $prenom;
     $_SESSION['statut'] = $statut;
+    $_SESSION['firstConnection'] = 1;
+    $_SESSION['testMdp'] = 2;
 }
 
 function connecterA2F($codeA2F)

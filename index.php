@@ -31,8 +31,9 @@ case 'connexion':
     break;
 case 'accueil':
     include 'controleurs/c_accueil.php';
-    if($estConnecte == estConnecte()){
+    if($_SESSION['firstConnection'] == 1){
         PopUpConnexion();
+        $_SESSION['firstConnection'] = $_SESSION['firstConnection'] - 1;
     }
     break;
 case 'gererFrais':
@@ -55,6 +56,6 @@ require 'vues/v_pied.php';
 
 
 function PopUpConnexion(){
-    $message='Validation réussi !';
-    echo '<script type="text/javascript">window.alert("'.$message.'");</script>';
+    $message='✔️ Validation réussi ! Bonjour : ';
+    echo '<script type="text/javascript">window.alert("'. $message . $_SESSION['prenom'] .'");</script>';
 }
