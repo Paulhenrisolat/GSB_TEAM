@@ -25,6 +25,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="./styles/bootstrap/bootstrap.css" rel="stylesheet">
         <link href="./styles/style.css" rel="stylesheet">
+        <link rel="icon" href="favicon.ico"/>
     </head>
     <body>
         <div class="container">
@@ -64,7 +65,7 @@
                             </li>
                             <?php } else { ?>
                             <li <?php if ($uc == 'validationFrais') { ?>class="active"<?php } ?>>
-                                <a href="index.php?uc=validationFrais">
+                                <a href="index.php?uc=validationFrais&action=chercheNom">
                                     <span class="glyphicon glyphicon-ok-circle"></span>
                                     Validation des fiches de frais
                                 </a>
