@@ -50,7 +50,7 @@
                            class="btn btn-success btn-lg" role="button">
                             <span class="glyphicon glyphicon-ok-circle"></span>
                             <br>Validation des fiches de frais</a>
-                        <a href="index.php?uc=suiviFrais"
+                        <a href="index.php?uc=suiviFrais&action=selectionnerFiche"
                            class="btn btn-primary btn-lg" role="button">
                             <span class="glyphicon glyphicon-search"></span>
                             <br>Suivi du paiement des fiches de frais</a>

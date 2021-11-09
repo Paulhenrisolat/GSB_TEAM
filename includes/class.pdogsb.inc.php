@@ -506,39 +506,34 @@ class PdoGsb
         }
         return $lesMois;
     }
-
+    
     public function getLesFichesVA()
     {
         $requetePrepare = PdoGSB::$monPdo->prepare(
-            'SELECT utilisateur.nom AS nom, '
-            . 'utilisateur.prenom AS prenom, '
-            . 'fichefrais.mois AS mois '
-            . 'FROM utilisateur '
-            . 'INNER JOIN fichefrais ON utilisateur.id = fichefrais.idvisiteur '
-            . 'WHERE visiteur.statut = :unStatut AND fichefrais.idetat = :idEtat '
-            . 'ORDER BY utilisateur.nom asc, fichefrais.mois desc'
+            'SELECT utilisateur.id AS idVisiteur, utilisateur.nom AS nom, '
+            . 'utilisateur.prenom AS prenom, fichefrais.mois AS mois '
+            . 'FROM fichefrais INNER JOIN utilisateur ON fichefrais.idvisiteur = utilisateur.id '
+            . 'WHERE fichefrais.idetat = :idEtat and utilisateur.statut = :statutVisiteur '
+            . 'ORDER BY fichefrais.mois desc, utilisateur.nom, utilisateur.prenom'
         );
-        $requetePrepare->bindValue(':unStatut', 'Visiteur', PDO::PARAM_STR);
         $requetePrepare->bindValue(':idEtat', 'VA', PDO::PARAM_STR);
+        $requetePrepare->bindValue(':statutVisiteur', 'Visiteur', PDO::PARAM_STR);
         $requetePrepare->execute();
         $lesFiches = array();
         while ($laLigne = $requetePrepare->fetch()) {
             $mois = $laLigne['mois'];
             $numAnnee = substr($mois, 0, 4);
             $numMois = substr($mois, 4, 2);
-            $nomVisiteur = $laLigne['nom'];
-            $prenomVisiteur = $laLigne['prenom'];
             $lesFiches[] = array(
-                'mois' => array(
-                    'cleMois' => $mois,
-                    'numAnnee' => $numAnnee,
-                    'numMois' => $numMois
-                ),
-                'nomVisiteur' => $nomVisiteur,
-                'prenomVisiteur' => $prenomVisiteur
+                'mois' => $mois,
+                'numAnnee' => $numAnnee,
+                'numMois' => $numMois,
+                'id' => $laLigne['idVisiteur'],
+                'nom' => $laLigne['nom'],
+                'prenom' => $laLigne['prenom']
             );
         }
-        return $lesMois;
+        return $lesFiches;
     }
 
     /**

@@ -1,34 +1,34 @@
-<?php ?>
+<?php
 
-<h2>Fiches de frais des visiteurs</h2>
+?>
+<h2>Les fiches de frais VA</h2>
 <div class="row">
     <div class="col-md-4">
-        <h3>Sélectionner un mois : </h3>
+        <h3>Sélectionner une fiche : </h3>
     </div>
     <div class="col-md-4">
         <form action="index.php?uc=suiviFrais&action=voirSuiviFrais" 
               method="post" role="form">
             <div class="form-group">
-                <label for="lstMois" accesskey="n">Mois et visiteur : </label>
-                <select id="lstMois" name="lstMois" class="form-control">
+                <label for="lstFiche" accesskey="n">Fiche : </label>
+                <select id="lstFiche" name="lstFiche" class="form-control">
                     <?php
                     foreach ($lesFiches as $uneFiche) {
-                        $unMois = $uneFiche['mois'];
-                        $numAnnee = $unMois['numAnnee'];
-                        $numMois = $unMois['numMois'];
-                        $cleMois = $unMois['mois'];
-                        $nomVisiteur = $uneFiche['nomVisiteur'];
-                        $prenomVisiteur = $uneFiche['prenomVisiteur'];
-                        if ($cleMois == $moisASelectionner) {
+                        $mois = $uneFiche['mois'];
+                        $id = $uneFiche['id'];
+                        $numMois = $uneFiche['numMois'];
+                        $nom = $uneFiche['nom'];
+                        $prenom = $uneFiche['prenom'];
+                        if ($mois == $ficheASelectionner['mois'] && $id == $ficheASelectionner['id']) {
                             ?>
-                            <option selected value="<?php echo $cleMois ?>">
-                                <?php echo $numMois . '/' . $numAnnee . ' - ' . $nomVisiteur . ' ' . $prenomVisiteur ?> </option>
-                                <?php
+                            <option selected value="<?php echo $mois ?>">
+                                <?php echo $date . ' - ' . $nom . ' ' . $prenom ?> </option>
+                            <?php
                         } else {
                             ?>
-                            <option value="<?php echo $cleMois ?>">
-                                <?php echo $numMois . '/' . $numAnnee . ' - ' . $nomVisiteur . ' ' . $prenomVisiteur ?> </option>
-                                <?php
+                            <option value="<?php echo $mois ?>">
+                                <?php echo $date . ' - ' . $nom . ' ' . $prenom ?> </option>
+                            <?php
                         }
                     }
                     ?>    

@@ -70,7 +70,7 @@
                                 </a>
                             </li>
                             <li <?php if ($uc == 'suiviFrais') { ?>class="active"<?php } ?>>
-                                <a href="index.php?uc=suiviFrais">
+                                <a href="index.php?uc=suiviFrais&action=selectionnerFiche">
                                     <span class="glyphicon glyphicon-search"></span>
                                     Suivi du paiement des fiches de frais
                                 </a>

@@ -3,7 +3,9 @@
 ?>
 <hr>
 <div class="panel panel-primary">
-    <div class="panel-heading">Fiche de frais du mois 
+    <div class="panel-heading">Fiche de frais de&nbsp;
+        <?php echo $nom . ' ' . $prenom ?> 
+    du mois&nbsp;
         <?php echo $numMois . '-' . $numAnnee ?> : </div>
     <div class="panel-body">
         <strong><u>Etat :</u></strong> <?php echo $libEtat ?>
