@@ -64,7 +64,7 @@
                             </li>
                             <?php } else { ?>
                             <li <?php if ($uc == 'validationFrais') { ?>class="active"<?php } ?>>
-                                <a href="index.php?uc=validationFrais">
+                                <a href="index.php?uc=validationFrais&action=chercheNom">
                                     <span class="glyphicon glyphicon-ok-circle"></span>
                                     Validation des fiches de frais
                                 </a>
