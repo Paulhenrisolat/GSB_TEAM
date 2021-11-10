@@ -21,4 +21,22 @@ case 'selectionnerFiche':
     $ficheASelectionner = $lesFiches[0];
     include 'vues/v_listeFichesVA.php';
     break;
+case 'voirSuiviFrais':
+    $infosFiche = filter_input(INPUT_POST, 'lstFiche', FILTER_SANITIZE_STRING);
+    list($idVisiteur, $mois) = explode('-', $infosFiche);
+    $infosVisiteur = $pdo->getNomPrenomVisiteur($idVisiteur);
+    $lesFiches = $pdo->getLesFichesVA();
+    include 'vues/v_listeFichesVA.php';
+    $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $mois);
+    $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $mois);
+    $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $mois);
+    $nom = $infosVisiteur['nom'];
+    $prenom = $infosVisiteur['prenom'];
+    $numAnnee = substr($mois, 0, 4);
+    $numMois = substr($mois, 4, 2);
+    $libEtat = $lesInfosFicheFrais['libEtat'];
+    $montantValide = $lesInfosFicheFrais['montantValide'];
+    $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
+    $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
+    include 'vues/v_suiviFrais.php';
 }

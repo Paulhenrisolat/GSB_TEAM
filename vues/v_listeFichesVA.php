@@ -17,22 +17,23 @@
                         $mois = $uneFiche['mois'];
                         $id = $uneFiche['id'];
                         $numMois = $uneFiche['numMois'];
+                        $numAnnee = $uneFiche['numAnnee'];
                         $nom = $uneFiche['nom'];
                         $prenom = $uneFiche['prenom'];
+                        $value = $id . '-' . $mois;
                         if ($mois == $ficheASelectionner['mois'] && $id == $ficheASelectionner['id']) {
                             ?>
-                            <option selected value="<?php echo $mois ?>">
-                                <?php echo $date . ' - ' . $nom . ' ' . $prenom ?> </option>
+                            <option selected value="<?php echo $value ?>">
+                                <?php echo $numMois . '/' . $numAnnee . ' - ' . $nom . ' ' . $prenom ?> </option>
                             <?php
                         } else {
                             ?>
-                            <option value="<?php echo $mois ?>">
-                                <?php echo $date . ' - ' . $nom . ' ' . $prenom ?> </option>
+                            <option value="<?php echo $value ?>">
+                                <?php echo $numMois . '/' . $numAnnee . ' - ' . $nom . ' ' . $prenom ?> </option>
                             <?php
                         }
                     }
-                    ?>    
-
+                    ?>
                 </select>
             </div>
             <input id="ok" type="submit" value="Valider" class="btn btn-success" 
