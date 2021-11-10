@@ -33,23 +33,46 @@ case 'accueil':
     include 'controleurs/c_accueil.php';
     break;
 case 'gererFrais':
-    include 'controleurs/c_gererFrais.php';
-    break;
+    if ($_SESSION['statut'] == 'Visiteur') {
+        include 'controleurs/c_gererFrais.php';
+        break;
+    }
+    else {
+        header('Location: index.php');
+        break;
+    }
 case 'etatFrais':
-    include 'controleurs/c_etatFrais.php';
-    break;
+    if ($_SESSION['statut'] == 'Visiteur') {
+        include 'controleurs/c_etatFrais.php';
+        break;
+    }
+    else {
+        header('Location: index.php');
+        break;
+    }
 case 'validationFrais':
-    include 'controleurs/c_ficheFraisUser.php';
-    break;
+    if ($_SESSION['statut'] == 'Comptable') {
+        include 'controleurs/c_ficheFraisUser.php';
+        break;
+    }
+    else {
+        header('Location: index.php');
+        break;
+    }
 case 'suiviFrais':
-    include 'controleurs/c_suiviFrais.php';
-    break;
+    if ($_SESSION['statut'] == 'Comptable') {
+        include 'controleurs/c_suiviFrais.php';
+        break;
+    }
+    else {
+        header('Location: index.php');
+        break;
+    }
 case 'deconnexion':
     include 'controleurs/c_deconnexion.php';
     break;
 }
 require 'vues/v_pied.php';
-
 
 function PopUpConnexion(){
     $message='✔️ Validation réussi ! Bonjour : ';

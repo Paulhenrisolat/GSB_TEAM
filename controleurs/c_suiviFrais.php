@@ -39,4 +39,9 @@ case 'voirSuiviFrais':
     $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
     $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
     include 'vues/v_suiviFrais.php';
+    break;
+case 'miseEnPaiement':
+    
+    include 'vues/v_miseEnPaiement.php';
+    
 }
