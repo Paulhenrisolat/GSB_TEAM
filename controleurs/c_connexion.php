@@ -74,5 +74,4 @@ case 'verifA2F':
 default:
     include 'vues/v_connexion.php';
     break;
-    break;
 }

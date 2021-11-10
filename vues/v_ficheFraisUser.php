@@ -23,35 +23,27 @@
 <button class="btn btn-success" type="submit">Valider</button>
 <button class="btn btn-danger" type="reset">Réinitialiser</button>
 
-<?php
-$nom = $_SESSION['nomprenom'];
-$info = explode("!", $nom);
-?>
-    <div class="panel-body">
-        <form role="form" method="post" 
-              action="index.php?uc=validationFrais&action=chercherMois">
-            <fieldset>
-                <div class="form-group">
-                    <div class="input-group">
-                        </span>
-                        <select name="IdUtilisateur">
-                            <?php
-                            $i = 1;
-                            while ($i != count($info)) {
-                                $texte = $info[$i];
-                                ?>
-                                <option value= <?php $i ?> > <?php print($texte) ?> </option>
-                                <?php
-                                $i += 1;
-                            }
-                            ?>
-                        </select>
-                    </div>
+<div class="panel-body">
+    <form role="form" method="post" 
+          action="index.php?uc=validationFrais&action=chercherMois">
+        <fieldset>
+            <div class="form-group">
+                <div class="input-group">
+                    </span>
+                    <label for="nom" accesskey="n">Mois : </label>
+                    <select id="nom" name="nom" class="form-control">
+                        <?php
+                        foreach ($nomprenoms as &$value) { ?>
+                            <option value= ><?php echo $value[0] . '&nbsp;' . $value[1]?> </option>
+                        
+                        
+                    </select>
                 </div>
-                <input type="submit" value="Entrée">
-            </fieldset>
-        </form>
-    </div>
+            </div>
+            <input id="valide" type="submit" value="Entrée" role="button">
+        </fieldset>
+    </form>
+</div>
 <select name="IdMois">
 
 

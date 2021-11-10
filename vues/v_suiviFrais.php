@@ -3,9 +3,9 @@
 ?>
 <hr>
 <div class="panel panel-primary">
-    <div class="panel-heading">Fiche de frais de&nbsp;
+    <div class="panel-heading">Fiche de frais de
         <?php echo $nom . ' ' . $prenom ?> 
-    du mois&nbsp;
+    du mois
         <?php echo $numMois . '-' . $numAnnee ?> : </div>
     <div class="panel-body">
         <strong><u>Etat :</u></strong> <?php echo $libEtat ?>
@@ -60,3 +60,11 @@
         ?>
     </table>
 </div>
+<form action="index.php?uc=suiviFrais&action=miseEnPaiementFrais" 
+    method="post" role="form">
+    <div class="form-group">
+        <label for="MPFrais" accesskey="n" />
+    </div>
+    <input id="ok" type="submit" value="Mise en paiement" class="btn btn-success" 
+        role="button">
+</form>
