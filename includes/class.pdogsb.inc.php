@@ -104,6 +104,19 @@ class PdoGsb
         return $requetePrepare->fetch();
     }
     
+    public function getNomPrenomVisiteur($idVisiteur)
+    {
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+            'SELECT utilisateur.nom AS nom, utilisateur.prenom AS prenom '
+            . 'FROM utilisateur '
+            . 'WHERE utilisateur.id = :idVisiteur AND utilisateur.statut = :leStatut'
+        );
+        $requetePrepare->bindParam(':idVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindValue(':leStatut', 'Visiteur', PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return $requetePrepare->fetch();
+    }
+    
     public function getInfosUtilisateur($login)
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
