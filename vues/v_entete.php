@@ -23,6 +23,8 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link href="./styles/style.css" rel="stylesheet">
+        <link rel="icon" href="favicon.ico"/>
         <!-- Couleur Connexion -->
         <?php if ($_SESSION['statut'] == 'Visiteur') { ?>
         <link href="./styles/bootstrap/bootstrap.css" rel="stylesheet">
@@ -30,8 +32,6 @@
         <link href="../styles/bootstrap/bootstrapComptable.css" rel="stylesheet" type="text/css"/>
         <?php } ?>
         <!-- fin -->
-        <link href="./styles/style.css" rel="stylesheet">
-        <link rel="icon" href="favicon.ico"/>
     </head>
     <body>
         <div class="container">
