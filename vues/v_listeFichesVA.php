@@ -21,7 +21,7 @@
                         $nom = $uneFiche['nom'];
                         $prenom = $uneFiche['prenom'];
                         $value = $id . '-' . $mois;
-                        if ($mois == $ficheASelectionner['mois'] && $id == $ficheASelectionner['id']) {
+                        if ($mois == $leMois && $id == $idVisiteur) {
                             ?>
                             <option selected value="<?php echo $value ?>">
                                 <?php echo $numMois . '/' . $numAnnee . ' - ' . $nom . ' ' . $prenom ?> </option>
