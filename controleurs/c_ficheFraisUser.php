@@ -15,14 +15,14 @@
  */
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 //fiches frais des users
-
-switch ($action) {
-    case 'chercheNom':
-        $noms = array();
-        $nomprenoms = getVisiteur();
+$noms = array();
+        $nomprenoms = $pdo->getVisiteur();
         foreach ($pdo->getVisiteur() as $visiteur) {
             $noms[] = $visiteur['nom'];
         }
+switch ($action) {
+    case 'chercheNom':
+        
 
         include'vues/v_ficheFraisUser.php';
         break;
