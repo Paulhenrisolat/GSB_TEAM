@@ -134,7 +134,7 @@ class PdoGsb
     public function getVisiteur()
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
-            'SELECT utilisateur.nom AS nom, utilisateur.prenom AS prenom '
+            'SELECT utilisateur.nom AS nom, utilisateur.prenom AS prenom, utilisateur.id AS id '
             . 'FROM utilisateur '
             . 'WHERE utilisateur.statut = :leStatut'
         );
