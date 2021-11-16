@@ -37,6 +37,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
                         <?php if ($_SESSION['statut'] == 'Visiteur') { ?>
+                        <!-- Visiteur -->
                         <a href="index.php?uc=gererFrais&action=saisirFrais"
                            class="btn btn-success btn-lg" role="button">
                             <span class="glyphicon glyphicon-pencil"></span>
@@ -46,6 +47,7 @@
                             <span class="glyphicon glyphicon-list-alt"></span>
                             <br>Afficher mes fiches de frais</a>
                         <?php } else { ?>
+                        <!-- Comptable -->
                         <a href="index.php?uc=validationFrais"
                            class="btn btn-success btn-lg" role="button">
                             <span class="glyphicon glyphicon-ok-circle"></span>

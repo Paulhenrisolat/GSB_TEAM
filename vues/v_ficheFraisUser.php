@@ -30,12 +30,12 @@
             <div class="form-group">
                 <div class="input-group">
                     </span>
-                    <label for="nom" accesskey="n">Mois : </label>
+                    <label for="nom" accesskey="n">List des utilisateur : </label>
                     <select id="nom" name="nom" class="form-control">
                         <?php
                         foreach ($nomprenoms as &$value) { ?>
-                            <option value= ><?php echo $value[0] . '&nbsp;' . $value[1]?> </option>
-                        
+                            <option value=><?php echo $value[0] . '&nbsp;' . $value[1]?> </option>
+                        <?php } ?>
                         
                     </select>
                 </div>
@@ -44,6 +44,6 @@
         </fieldset>
     </form>
 </div>
-<select name="IdMois">
+<!--<select name="IdMois">-->
 
 
