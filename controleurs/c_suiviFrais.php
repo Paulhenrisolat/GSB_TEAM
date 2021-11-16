@@ -43,5 +43,11 @@ case 'voirSuiviFrais':
 case 'miseEnPaiement':
     
     include 'vues/v_miseEnPaiement.php';
+    break;
+case 'PDF':
     
+    include 'tests/phpTopdf.php';
+    $name = $_POST['nom'];
+    $address = $_POST['prenom'];
+    break;
 }
