@@ -20,28 +20,28 @@ if (!$uc) {
 }
 
 switch ($action) {
-    case 'demandeConnexion':
-        include 'vues/v_connexion.php';
-        break;
-    case 'valideConnexion':
-        $login = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_STRING);
-        $mdp = filter_input(INPUT_POST, 'mdp', FILTER_SANITIZE_STRING);
-        $utilisateur = $pdo->getInfosUtilisateur($login);
-        if (password_verify($mdp, $pdo->getMotDePasseUtilisateur($login))) {
-            $id = $utilisateur['id'];
-            $nom = $utilisateur['nom'];
-            $prenom = $utilisateur['prenom'];
-            $statut = $utilisateur['statut'];
-            connecter($id, $nom, $prenom, $statut);
+case 'demandeConnexion':
+    include 'vues/v_connexion.php';
+    break;
+case 'valideConnexion':
+    $login = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_STRING);
+    $mdp = filter_input(INPUT_POST, 'mdp', FILTER_SANITIZE_STRING);
+    $utilisateur = $pdo->getInfosUtilisateur($login);
+    if (password_verify($mdp, $pdo->getMotDePasseUtilisateur($login))) {
+        $id = $utilisateur['id'];
+        $nom = $utilisateur['nom'];
+        $prenom = $utilisateur['prenom'];
+        $statut = $utilisateur['statut'];
+        connecter($id, $nom, $prenom, $statut);
 			
-        $email = $utilisateur['email'];
-        $subject = "A2F GSB";
-        $headers = array('From' => 'noreply@swiss-galaxy.com');
-        $code = rand(100000, 999999);
-        $pdo->setCodeA2F($code, $_SESSION['idUtilisateur']);
-        $message = "Vérification d'identité\nCode : " . $code;
-        mail($email, $subject, $message, $headers);
-        include 'vues/v_verifA2F.php';
+    $email = $utilisateur['email'];
+    $subject = "A2F GSB";
+    $headers = array('From' => 'noreply@swiss-galaxy.com');
+    $code = rand(100000, 999999);
+    $pdo->setCodeA2F($code, $_SESSION['idUtilisateur']);
+    $message = "Vérification d'identité\nCode : " . $code;
+    mail($email, $subject, $message, $headers);
+    include 'vues/v_verifA2F.php';
     }
     else {
         ajouterErreur('Login ou mot de passe incorrect');

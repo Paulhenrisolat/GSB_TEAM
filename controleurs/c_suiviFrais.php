@@ -18,22 +18,21 @@ $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 switch ($action) {
 case 'selectionnerFiche':
     $lesFiches = $pdo->getLesFichesVA();
-    $ficheASelectionner = $lesFiches[0];
     include 'vues/v_listeFichesVA.php';
     break;
 case 'voirSuiviFrais':
     $infosFiche = filter_input(INPUT_POST, 'lstFiche', FILTER_SANITIZE_STRING);
-    list($idVisiteur, $mois) = explode('-', $infosFiche);
+    list($idVisiteur, $leMois) = explode('-', $infosFiche);
     $infosVisiteur = $pdo->getNomPrenomVisiteur($idVisiteur);
     $lesFiches = $pdo->getLesFichesVA();
     include 'vues/v_listeFichesVA.php';
-    $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $mois);
-    $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $mois);
-    $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $mois);
+    $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
+    $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
+    $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
     $nom = $infosVisiteur['nom'];
     $prenom = $infosVisiteur['prenom'];
-    $numAnnee = substr($mois, 0, 4);
-    $numMois = substr($mois, 4, 2);
+    $numAnnee = substr($leMois, 0, 4);
+    $numMois = substr($leMois, 4, 2);
     $libEtat = $lesInfosFicheFrais['libEtat'];
     $montantValide = $lesInfosFicheFrais['montantValide'];
     $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
@@ -41,11 +40,14 @@ case 'voirSuiviFrais':
     include 'vues/v_suiviFrais.php';
     break;
 case 'miseEnPaiement':
-    
+    $infosFiche = filter_input(INPUT_POST, 'infosFicheFrais', FILTER_SANITIZE_STRING);
+    list($idVisiteur, $leMois) = explode('-', $infosFiche);
+    $pdo->majEtatFicheFrais($idVisiteur, $leMois, 'RB');
+    $lesFiches = $pdo->getLesFichesVA();
     include 'vues/v_miseEnPaiement.php';
     break;
 case 'PDF':
-    
+    include 'vues/v_listeFichesVA.php';
     include 'tests/phpTopdf.php';
     $name = $_POST['nom'];
     $address = $_POST['prenom'];
