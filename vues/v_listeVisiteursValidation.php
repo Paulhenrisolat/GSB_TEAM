@@ -7,7 +7,7 @@
         <h3>Sélectionner un utilisateur : </h3>
     </div>
     <div class="col-md-4">
-        <form action="index.php?uc=validationFrais&action=voirEtatFrais" 
+        <form action="index.php?uc=validationFrais&action=chercheMois" 
               method="post" role="form">
             <div class="form-group">
                 <label for="idU" accesskey="n">Utilisateur : </label>
@@ -35,5 +35,6 @@
                    role="button">
         </form>
     </div>
+    
 </div>
 

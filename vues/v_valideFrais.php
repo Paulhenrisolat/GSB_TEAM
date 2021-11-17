@@ -97,7 +97,6 @@
         }
         ?>
     </table>
-</div>
-<a href="tests/pdfEtatFrais.php"><input id="pdf" type="submit" value="PDF" class="btn btn-success" role="button"></a>  
+</div>  
 
 

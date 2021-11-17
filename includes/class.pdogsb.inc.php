@@ -131,12 +131,13 @@ class PdoGsb
         return $requetePrepare->fetch();
     }
     
-    public function getVisiteur()
+    public function getLesVisiteurs()
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
             'SELECT utilisateur.nom AS nom, utilisateur.prenom AS prenom, utilisateur.id AS id '
             . 'FROM utilisateur '
-            . 'WHERE utilisateur.statut = :leStatut'
+            . 'WHERE utilisateur.statut = :leStatut '
+            . 'ORDER BY utilisateur.nom, utilisateur.prenom'
         );
         $requetePrepare->bindValue(':leStatut', 'Visiteur', PDO::PARAM_STR);
         $requetePrepare->execute();
