@@ -46,6 +46,11 @@ case 'miseEnPaiement':
     $lesFiches = $pdo->getLesFichesVA();
     ajouterMessage('La fiche a bien été mise en paiement.');
     include 'vues/v_message.php';
+    break;
+case 'PDF':
     include 'vues/v_listeFichesVA.php';
-    
+    include 'tests/phpTopdf.php';
+    $name = $_POST['nom'];
+    $address = $_POST['prenom'];
+    break;
 }

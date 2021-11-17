@@ -64,8 +64,15 @@
     method="post" role="form">
     <div class="form-group">
         <label for="MPFrais" accesskey="n" />
-            <input id="ok" type="submit" value="Mise en paiement" class="btn btn-success" 
-        role="button">
-            <input type="hidden" value="<?php echo $infosFiche ?>" name="infosFicheFrais">
+        <input id="ok" type="submit" value="Mise en paiement" class="btn btn-success" 
+			role="button">
+		<input type="hidden" value="<?php echo $infosFiche ?>" name="infosFicheFrais">
+	</div>
+</form>
+<form action="index.php?uc=suiviFrais&action=PDF" 
+    method="post" role="form">
+    <div class="form-group">
+        <label for="PDF" accesskey="n" />
     </div>
+    <a href="tests/phpTopdf.php" target="_blank" id="pdf" type="submit" value="PDF" class="btn btn-success" role="button">PDF</a>
 </form>
