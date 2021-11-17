@@ -104,6 +104,13 @@ class PdoGsb
         return $requetePrepare->fetch();
     }
     
+    /**
+     * Retourne le nom et prénom d'un visiteur
+     *
+     * @param String $idVisiteur ID du visiteur
+     *
+     * @return le nom et le prénom sous la forme d'un tableau associatif
+     */
     public function getNomPrenomVisiteur($idVisiteur)
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
@@ -117,6 +124,13 @@ class PdoGsb
         return $requetePrepare->fetch();
     }
     
+    /**
+     * Retourne les informations d'un utilisateur
+     *
+     * @param String $login Login de l'utilisateur
+     *
+     * @return l'id, le nom, le prénom, le statut et l'email sous la forme d'un tableau associatif
+     */
     public function getInfosUtilisateur($login)
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
@@ -131,10 +145,15 @@ class PdoGsb
         return $requetePrepare->fetch();
     }
     
+    /**
+     * Retourne les informations principales d'un visiteur
+     *
+     * @return l'id, le nom, le prénom, le statut et l'email sous la forme d'un tableau associatif
+     */
     public function getVisiteur()
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
-            'SELECT utilisateur.nom AS nom, utilisateur.prenom AS prenom, utilisateur.id AS id '
+            'SELECT utilisateur.id AS id, utilisateur.nom AS nom, utilisateur.prenom AS prenom '
             . 'FROM utilisateur '
             . 'WHERE utilisateur.statut = :leStatut'
         );
@@ -143,6 +162,13 @@ class PdoGsb
         return $requetePrepare->fetchAll();
     }
     
+    /**
+     * Retourne le mot de passe d'un utilisateur
+     *
+     * @param String $login Login de l'utilisateur
+     *
+     * @return le mot de passe
+     */
     public function getMotDePasseUtilisateur($login)
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
@@ -251,6 +277,13 @@ class PdoGsb
         return $requetePrepare->fetchAll();
     }
 
+    /**
+     * Retourne le code d'authentification à double facteurs d'un utilisateur
+     *
+     * @param String $id ID de l'utilisateur
+     *
+     * @return le code A2F
+     */
     public function getCodeA2F($id)
     {
         $requetePrepare = PdoGSB::$monPdo->prepare(
@@ -263,18 +296,14 @@ class PdoGsb
         return $requetePrepare->fetch()['codea2f'];
     }
     
-    public function getEmailUtilisateur($id)
-    {
-        $requetePrepare = PdoGSB::$monPdo->prepare(
-            'SELECT utilisateur.email AS email '
-            . 'FROM utilisateur '
-            . 'WHERE utilisateur.id = :unId'
-        );
-        $requetePrepare->bindParam(':unId', $id, PDO::PARAM_STR);
-        $requetePrepare->execute();
-        return $requetePrepare->fetch()['email'];
-    }
-    
+    /**
+     * Retourne le code d'authentification à double facteurs d'un utilisateur
+     *
+     * @param Int $codeAuth Code de l'utilisateur
+     * @param String $id    ID de l'utilisateur
+     *
+     * @return null
+     */
     public function setCodeA2F($codeAuth, $id)
     {
         $requetePrepare = PdoGSB::$monPdo->prepare(
@@ -490,7 +519,7 @@ class PdoGsb
     }
 
     /**
-     * Retourne les mois pour lesquel un visiteur a une fiche de frais
+     * Retourne les mois pour lesquels un visiteur a une fiche de frais
      *
      * @param String $idVisiteur ID du visiteur
      *
@@ -520,6 +549,11 @@ class PdoGsb
         return $lesMois;
     }
     
+    /**
+     * Retourne les fiches VA des visiteurs
+     *
+     * @return les fiches VA sous la forme d'un tableau
+     */
     public function getLesFichesVA()
     {
         $requetePrepare = PdoGSB::$monPdo->prepare(
@@ -574,24 +608,6 @@ class PdoGsb
         );
         $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
-        $requetePrepare->execute();
-        $laLigne = $requetePrepare->fetch();
-        return $laLigne;
-    }
-    
-    public function getLesFichesFrais($etat)
-    {
-        $requetePrepare = PdoGSB::$monPdo->prepare(
-            'SELECT fichefrais.idetat as idEtat, '
-            . 'fichefrais.datemodif as dateModif,'
-            . 'fichefrais.nbjustificatifs as nbJustificatifs, '
-            . 'fichefrais.montantvalide as montantValide, '
-            . 'etat.libelle as libEtat '
-            . 'FROM fichefrais '
-            . 'INNER JOIN etat ON fichefrais.idetat = etat.id '
-            . 'WHERE idetat = :idEtat'
-        );
-        $requetePrepare->bindParam(':idEtat', $etat, PDO::PARAM_STR);
         $requetePrepare->execute();
         $laLigne = $requetePrepare->fetch();
         return $laLigne;

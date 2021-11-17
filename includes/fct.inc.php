@@ -42,6 +42,13 @@ function connecter($id, $nom, $prenom, $statut)
     $_SESSION['essais'] = 3;
 }
 
+/**
+ * Enregistre dans une variable session le code d'authentification à double facteurs
+ *
+ * @param Int $codeA2F CodeA2F du visiteur
+ *
+ * @return null
+ */
 function connecterA2F($codeA2F)
 {
     $_SESSION['codeA2F'] = $codeA2F;
