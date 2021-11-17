@@ -64,10 +64,10 @@
     method="post" role="form">
     <div class="form-group">
         <label for="MPFrais" accesskey="n" />
-        <input id="ok" type="submit" value="Mise en paiement" class="btn btn-success" 
-			role="button">
-		<input type="hidden" value="<?php echo $infosFiche ?>" name="infosFicheFrais">
-	</div>
+        <input id="ok" type="submit" value="Mettre en paiement" class="btn btn-success" 
+            role="button">
+	<input type="hidden" value="<?php echo $infosFiche ?>" name="infosFicheFrais">
+    </div>
 </form>
 <form action="index.php?uc=suiviFrais&action=PDF" 
     method="post" role="form">

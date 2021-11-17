@@ -42,6 +42,13 @@ function connecter($id, $nom, $prenom, $statut)
     $_SESSION['essais'] = 3;
 }
 
+/**
+ * Enregistre dans une variable session le code d'authentification à double facteurs
+ *
+ * @param Int $codeA2F CodeA2F du visiteur
+ *
+ * @return null
+ */
 function connecterA2F($codeA2F)
 {
     $_SESSION['codeA2F'] = $codeA2F;
@@ -239,6 +246,21 @@ function ajouterErreur($msg)
         $_REQUEST['erreurs'] = array();
     }
     $_REQUEST['erreurs'][] = $msg;
+}
+
+/**
+ * Ajoute le libellé d'un message au tableau des messages
+ *
+ * @param String $msg Libellé du message
+ *
+ * @return null
+ */
+function ajouterMessage($msg)
+{
+    if (!isset($_REQUEST['messages'])) {
+        $_REQUEST['messages'] = array();
+    }
+    $_REQUEST['messages'][] = $msg;
 }
 
 /**

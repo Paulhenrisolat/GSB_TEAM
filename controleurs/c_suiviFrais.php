@@ -44,7 +44,9 @@ case 'miseEnPaiement':
     list($idVisiteur, $leMois) = explode('-', $infosFiche);
     $pdo->majEtatFicheFrais($idVisiteur, $leMois, 'RB');
     $lesFiches = $pdo->getLesFichesVA();
-    include 'vues/v_miseEnPaiement.php';
+    ajouterMessage('La fiche a bien été mise en paiement.');
+    include 'vues/v_messages.php';
+    include 'vues/v_listeFichesVA.php';
     break;
 case 'PDF':
     include 'vues/v_listeFichesVA.php';
