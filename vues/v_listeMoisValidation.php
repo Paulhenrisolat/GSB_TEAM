@@ -1,8 +1,31 @@
+<?php ?>
+
+<form action="index.php?uc=validationFrais&action=voirEtatFrais" 
+      method="post" role="form">
+
+    <label for="lstMois" accesskey="n">Choisir le mois : </label>
+    <select id="lstMois" name="lstMois">
 <?php
+foreach ($lesMois as $unMois) {
+    $mois = $unMois['mois'];
+    $numAnnee = $unMois['numAnnee'];
+    $numMois = $unMois['numMois'];
+    if ($mois == $moisASelectionner) {
+        ?>
+                <option selected value="<?php echo $mois . '-' . $idVisiteur ?>">
+                <?php echo $numMois . '/' . $numAnnee ?> </option>
+                    <?php
+                } else {
+                    ?>
+                <option value="<?php echo $mois . '-' . $idVisiteur ?>">
+                <?php echo $numMois . '/' . $numAnnee ?> </option>
+                    <?php
+                }
+            }
+            ?>    
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+    </select>
 
+    <input id="ok" type="submit" value="Valider" class="btn btn-success"
+           role="button">
+</form>

@@ -134,14 +134,22 @@ class PdoGsb
     public function getLesVisiteurs()
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
-            'SELECT utilisateur.nom AS nom, utilisateur.prenom AS prenom, utilisateur.id AS id '
+            'SELECT utilisateur.id AS id, utilisateur.nom AS nom, utilisateur.prenom AS prenom '
             . 'FROM utilisateur '
             . 'WHERE utilisateur.statut = :leStatut '
             . 'ORDER BY utilisateur.nom, utilisateur.prenom'
         );
         $requetePrepare->bindValue(':leStatut', 'Visiteur', PDO::PARAM_STR);
         $requetePrepare->execute();
-        return $requetePrepare->fetchAll();
+        $lesVisiteurs = array();
+        while ($leVisiteur = $requetePrepare->fetch()) {
+            $lesVisiteurs[] = array(
+                'id' => $leVisiteur['id'],
+                'nom' => $leVisiteur['nom'],
+                'prenom' => $leVisiteur['prenom']
+            );
+        }
+        return $lesVisiteurs;
     }
     
     public function getMotDePasseUtilisateur($login)

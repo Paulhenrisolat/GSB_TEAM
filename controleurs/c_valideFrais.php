@@ -45,18 +45,26 @@ $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 
 switch ($action) {
 case 'chercheNom':
-    $nomprenoms = $pdo->getLesVisiteurs();
+    $lesInfosVisiteurs = $pdo->getLesVisiteurs();
     include 'vues/v_listeVisiteursValidation.php';
     break;
 case 'chercheMois':
-    $idVisiteur = filter_input(INPUT_POST, 'idU', FILTER_SANITIZE_STRING);
+    $idVisiteur = filter_input(INPUT_POST, 'idVisiteur', FILTER_SANITIZE_STRING);
     $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
-    $idASelectionne = $idVisiteur;
-    $nomprenoms = $pdo->getLesVisiteurs();
+    $idASelectionner = $idVisiteur;
+    $lesInfosVisiteurs = $pdo->getLesVisiteurs();
     include 'vues/v_listeVisiteursValidation.php';
-    include 'vues/v_listeMoisValidation.php';
+    include 'vues/v_listeMoisValidation.php';   
     break;
 case 'voirEtatFrais':
+    $laValeur = filter_input(INPUT_POST, 'lstMois', FILTER_SANITIZE_STRING);
+    list($leMois, $idVisiteur) = explode('-', $laValeur);
+    $idASelectionner = $idVisiteur;
+    $moisASelectionner = $leMois;
+    $lesInfosVisiteurs = $pdo->getLesVisiteurs();
+    $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
+    include 'vues/v_listeVisiteursValidation.php';
+    include 'vues/v_listeMoisValidation.php';   
     $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
     $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
     $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
@@ -68,7 +76,5 @@ case 'voirEtatFrais':
     $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
     include 'vues/v_valideFrais.php';
     break;
-case 'topdf':
-    include 'tests/phpTopdf.php';
 }
    

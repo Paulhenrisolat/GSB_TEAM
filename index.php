@@ -52,7 +52,7 @@ case 'etatFrais':
     }
 case 'validationFrais':
     if ($_SESSION['statut'] == 'Comptable') {
-        include 'controleurs/c_ficheFraisUser.php';
+        include 'controleurs/c_valideFrais.php';
         break;
     }
     else {

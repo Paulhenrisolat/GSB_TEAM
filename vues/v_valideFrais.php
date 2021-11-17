@@ -7,13 +7,13 @@
 <h3>Elément forfaitisés</h3>
 
 <a>Forfait Etape</a>
-<p><input type="number" maxlength="25"/></p>
+<p><input type="number" maxlength="250"/></p>
 <a>Frais Kilométrique</a>
-<p><input type="number" maxlength="25"/></p>
+<p><input type="number" maxlength="250"/></p>
 <a>Nuité Hôtel</a>
-<p><input type="number" maxlength="25"/></p>
+<p><input type="number" maxlength="250"/></p>
 <a>Repas Restaurant</a>
-<p><input type="number" maxlength="25"/></p>
+<p><input type="number" maxlength="250"/></p>
 
 <button class="btn btn-success" type="submit">Corriger</button>
 <button class="btn btn-danger" type="reset">Réinitialiser</button>
@@ -42,56 +42,45 @@
     </form>
 </div>-->
 <hr>
-<div class="panel panel-primary">
-    <div class="panel-heading">Fiche de frais du mois 
-        <?php echo $numMois . '-' . $numAnnee ?> : </div>
-    <div class="panel-body">
-        <strong><u>Etat :</u></strong> <?php echo $libEtat ?>
-        depuis le <?php echo $dateModif ?> <br> 
-        <strong><u>Montant validé :</u></strong> <?php echo $montantValide ?>
-    </div>
-</div>
+<h2>Validation des fiches de frais</h2>
+<h3 style="color: #333">Elément forfaitisés</h3>
+<?php
+foreach ($lesFraisForfait as $unFraisForfait) {
+    $libelle = $unFraisForfait['libelle'];
+    $quantite = $unFraisForfait['quantite'];
+    ?>
+    <p> <?php echo htmlspecialchars($libelle) ?></p>
+    <p><input type="number" value="<?php echo $quantite ?>" ></p>
+    <?php
+}
+?>
+<input id="ok" type="submit" value="Valider" class="btn btn-success" 
+       role="button">
+<input id="annuler" type="reset" value="Effacer" class="btn btn-danger" 
+       role="button">
 <div class="panel panel-info">
-    <div class="panel-heading">Eléments forfaitisés</div>
-    <table class="table table-bordered table-responsive">
-        <tr>
-            <?php
-            foreach ($lesFraisForfait as $unFraisForfait) {
-                $libelle = $unFraisForfait['libelle']; ?>
-                <th> <?php echo htmlspecialchars($libelle) ?></th>
-                <?php
-            }
-            ?>
-        </tr>
-        <tr>
-            <?php
-            foreach ($lesFraisForfait as $unFraisForfait) {
-                $quantite = $unFraisForfait['quantite']; ?>
-                <td class="qteForfait"><?php echo $quantite ?> </td>
-                <?php
-            }
-            ?>
-        </tr>
-    </table>
-</div>
-<div class="panel panel-info">
-    <div class="panel-heading">Descriptif des éléments hors forfait - 
-        <?php echo $nbJustificatifs ?> justificatifs reçus</div>
+    <div class="panel-heading">Descriptif des éléments hors forfait</div>
     <table class="table table-bordered table-responsive">
         <tr>
             <th class="date">Date</th>
             <th class="libelle">Libellé</th>
-            <th class='montant'>Montant</th>                
+            <th class='montant'>Montant</th>
+            <th></th>
         </tr>
         <?php
         foreach ($lesFraisHorsForfait as $unFraisHorsForfait) {
             $date = $unFraisHorsForfait['date'];
             $libelle = htmlspecialchars($unFraisHorsForfait['libelle']);
-            $montant = $unFraisHorsForfait['montant']; ?>
+            $montant = $unFraisHorsForfait['montant'];
+            ?>
             <tr>
-                <td><?php echo $date ?></td>
-                <td><?php echo $libelle ?></td>
-                <td><?php echo $montant ?></td>
+                <td><input type="char" value="<?php echo $date ?>"></td>
+                <td><input type="char" value="<?php echo $libelle ?>"></td>
+                <td><input type="char" value="<?php echo $montant ?>"></td>
+                <td><input id="ok" type="submit" value="Valider" class="btn btn-success" 
+                           role="button">
+                    <input id="annuler" type="reset" value="Effacer" class="btn btn-danger" 
+                           role="button"></td>
             </tr>
             <?php
         }
