@@ -568,13 +568,8 @@ class PdoGsb
         $requetePrepare->execute();
         $lesFiches = array();
         while ($laLigne = $requetePrepare->fetch()) {
-            $mois = $laLigne['mois'];
-            $numAnnee = substr($mois, 0, 4);
-            $numMois = substr($mois, 4, 2);
             $lesFiches[] = array(
-                'mois' => $mois,
-                'numAnnee' => $numAnnee,
-                'numMois' => $numMois,
+                'mois' => $laLigne['mois'],
                 'id' => $laLigne['idVisiteur'],
                 'nom' => $laLigne['nom'],
                 'prenom' => $laLigne['prenom']

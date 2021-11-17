@@ -1,7 +1,7 @@
 <?php
 
 ?>
-<h2>Les fiches de frais VA</h2>
+<h2>Les fiches de frais à mettre en paiement</h2>
 <div class="row">
     <div class="col-md-4">
         <h3>Sélectionner une fiche : </h3>
@@ -15,9 +15,9 @@
                     <?php
                     foreach ($lesFiches as $uneFiche) {
                         $mois = $uneFiche['mois'];
+                        $numAnnee = substr($mois, 0, 4);
+                        $numMois = substr($mois, 4, 2);
                         $id = $uneFiche['id'];
-                        $numMois = $uneFiche['numMois'];
-                        $numAnnee = $uneFiche['numAnnee'];
                         $nom = $uneFiche['nom'];
                         $prenom = $uneFiche['prenom'];
                         $value = $id . '-' . $mois;
