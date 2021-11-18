@@ -54,9 +54,9 @@ foreach ($lesFraisForfait as $unFraisForfait) {
     <?php
 }
 ?>
-<input id="ok" type="submit" value="Valider" class="btn btn-success" 
+<input id="ok" type="submit" value="Corriger" class="btn btn-success" 
        role="button">
-<input id="annuler" type="reset" value="Effacer" class="btn btn-danger" 
+<input id="annuler" type="reset" value="Réinitialiser" class="btn btn-danger" 
        role="button">
 <div class="panel panel-info">
     <div class="panel-heading">Descriptif des éléments hors forfait</div>
@@ -77,15 +77,22 @@ foreach ($lesFraisForfait as $unFraisForfait) {
                 <td><input type="char" value="<?php echo $date ?>"></td>
                 <td><input type="char" value="<?php echo $libelle ?>"></td>
                 <td><input type="char" value="<?php echo $montant ?>"></td>
-                <td><input id="ok" type="submit" value="Valider" class="btn btn-success" 
+                <td>
+                    <input id="ok" type="submit" value="Corriger" class="btn btn-success" 
                            role="button">
-                    <input id="annuler" type="reset" value="Effacer" class="btn btn-danger" 
-                           role="button"></td>
+                    <input id="annuler" type="reset" value="Réinitialiser" class="btn btn-danger" 
+                           role="button">
+                </td>
             </tr>
             <?php
         }
         ?>
     </table>
 </div>  
-
-
+<p> Nombre de justificatifs : <input type="char" value="<?php echo $nbJustificatifs ?>" readonly> </p>
+<form action="" method="post" role="form">
+    <input id="ok" type="submit" value="Valider" class="btn btn-success" 
+        role="button">
+    <input id="annuler" type="reset" value="Réinitialiser" class="btn btn-danger" 
+        role="button">
+</form>
