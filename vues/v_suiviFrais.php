@@ -69,8 +69,9 @@
 	<input type="hidden" value="<?php echo $infosFiche ?>" name="infosFicheFrais">
     </div>
 </form>
-<form action="index.php?uc=suiviFrais&action=PDF" 
-    method="post" role="form">
+
+<!-- PDF -->
+<form action="index.php?uc=suiviFrais&action=PDF" method="post" role="form">
     <div class="form-group">
         <label for="PDF" accesskey="n" />
     </div>

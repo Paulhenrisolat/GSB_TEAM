@@ -26,15 +26,18 @@ class PDF extends FPDF {
         $this->Ln(40);
         $this->SetX(15);
         $this->Cell(180, 100, 'Mois ', 1, 0, 'C');
+        //tableInfo
+        $this->SetX(15);
+        $this->Cell(10, 10, 'Mois ', 1, 0, 'C');
     }
 
     // Simple table
     function HeaderTable() {
-        $this->Cell(0, 0, 'Mois ', 1, 0, 'C');
-        $this->Cell(0, 0, 'Mois ', 1, 0, 'C');
-        $this->Cell(0, 0, 'Mois ', 1, 0, 'C');
-        $this->Cell(0, 0, 'Mois ', 1, 0, 'C');
-        $this->Cell(0, 0, 'Mois ', 1, 0, 'C');
+        //$this->Cell(0, 0, 'Mois ', 1, 0, 'C');
+        $this->SetY(100);
+        $this->SetFont('Arial', 'B', 14);
+        $this->Cell(60,0,'ID',1,0,'C');
+        $this->Cell(40,10,'Name',1,0,'C');
     }
 
     //Bas de page
