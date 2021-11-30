@@ -76,5 +76,8 @@ case 'voirEtatFrais':
     $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
     include 'vues/v_valideFrais.php';
     break;
+case 'button':
+    
+    break;
 }
    

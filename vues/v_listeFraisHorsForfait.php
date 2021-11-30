@@ -60,7 +60,7 @@
             </div>
             <div class="form-group">
                 <label for="txtLibelleHF">Libellé</label>             
-                <input type="text" id="txtLibelleHF" name="libelle" 
+                <input type="text" id="txtLibelleHF" name="libelle" +
                        class="form-control" id="text">
             </div> 
             <div class="form-group">
