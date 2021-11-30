@@ -1,6 +1,7 @@
 <?php
 
 require 'fpdpf/fpdf.php';
+require '../includes/class.pdogsb.inc.php';
 
 class PDF extends FPDF {
 
@@ -18,17 +19,28 @@ class PDF extends FPDF {
         $this->Cell(190, 10, "REMBOURSEMENT DE FRAIS ENGAGES", 1, 0, 'C');
         $this->Ln();
         $this->SetFont('Arial', '', 12);
-        //cellule
-        $this->Cell(190, 155, "", 1, 0, 'C');//test cellule englobe
+        //cellules
+        $this->Cell(190, 155, "", 1, 0, 'C'); //test cellule englobe
         $this->SetTextColor(0, 0, 0);
-        $this->Cell(-350, 40, 'Visiteur ' , 0, 0, 'C');
+        $this->Cell(-350, 40, 'Visiteur', 0, 0, 'C');
         $this->Cell(0, 60, 'Mois ', 0, 0, 'C');
         $this->Ln(40);
-        $this->SetX(15);
-        $this->Cell(180, 100, 'Mois ', 1, 0, 'C');
+        $this->SetXY(20, 90);
+        $this->Cell(170, 90, 'tableau', 1, 0, 'C');
+
         //tableInfo
-        $this->SetX(15);
-        $this->Cell(10, 10, 'Mois ', 1, 0, 'C');
+        $this->SetXY(150, 185);
+        $this->Cell(40, 10, 'resultat', 1, 0, 'C');
+        
+        //test tableau sql
+        $this->SetFont('Arial', 'B', 10);
+        $this->SetXY(20, 90);
+        $this->Cell(50, 10, 'Frais Forfaitaires', 1, 0, 'C');
+        $this->Cell(40, 10, 'Quantite', 1, 0, 'C');
+        $this->Cell(40, 10, 'Montant unitaire', 1, 0, 'C');
+        $this->Cell(40, 10, 'Total', 1, 0, 'C');
+        //tableau rempli
+
     }
 
     // Simple table
@@ -36,8 +48,8 @@ class PDF extends FPDF {
         //$this->Cell(0, 0, 'Mois ', 1, 0, 'C');
         $this->SetY(100);
         $this->SetFont('Arial', 'B', 14);
-        $this->Cell(60,0,'ID',1,0,'C');
-        $this->Cell(40,10,'Name',1,0,'C');
+        $this->Cell(60, 0, 'ID', 1, 0, 'C');
+        $this->Cell(40, 10, 'Name', 1, 0, 'C');
     }
 
     //Bas de page
@@ -52,10 +64,12 @@ class PDF extends FPDF {
 
 }
 
+//pdf
 //Creation du PDF (utilise le nom de la classe précedente)
 $pdf = new PDF();
 $pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->SetFont('Times', '', 12);
+//sortie
 $pdf->Output();
 
