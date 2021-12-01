@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Gestion de l'affichage des frais
  *
@@ -13,71 +14,54 @@
  * @version   GIT: <0>
  * @link      http://www.reseaucerta.org Contexte « Laboratoire GSB »
  */
-//$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
-////fiches frais des users
-//$noms = array();
-//        $nomprenoms = $pdo->getVisiteur();
-//        foreach ($pdo->getVisiteur() as $visiteur) {
-//            $noms[] = $visiteur['nom'];
-//        }
-//switch ($action) {
-//    case 'chercheNom':
-//        
-//
-//        include'vues/v_ficheFraisUser.php';
-//        break;
-//
-//    case 'chercherMois':
-//        $i1 = 0;
-//        $nom = filter_input(INPUT_POST, 'nom', FILTER_SANITIZE_STRING);
-//        foreach ($pdo->getLesMoisDisponibles($nom) as &$value1) {
-//            ? <option value=<?php $i1 ??php
-//            echo $value1;
-//            $i++;
-//        }
-//        include'vues/v_ficheFraisUser.php';
-//        break;
-//    default :
-//        include'vues/v_ficheFraisUser.php';
-//        break;
-//}
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 
 switch ($action) {
-case 'chercheNom':
-    $lesInfosVisiteurs = $pdo->getLesVisiteurs();
-    include 'vues/v_listeVisiteursValidation.php';
-    break;
-case 'chercheMois':
-    $idVisiteur = filter_input(INPUT_POST, 'idVisiteur', FILTER_SANITIZE_STRING);
-    $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
-    $idASelectionner = $idVisiteur;
-    $lesInfosVisiteurs = $pdo->getLesVisiteurs();
-    include 'vues/v_listeVisiteursValidation.php';
-    include 'vues/v_listeMoisValidation.php';   
-    break;
-case 'voirEtatFrais':
-    $laValeur = filter_input(INPUT_POST, 'lstMois', FILTER_SANITIZE_STRING);
-    list($leMois, $idVisiteur) = explode('-', $laValeur);
-    $idASelectionner = $idVisiteur;
-    $moisASelectionner = $leMois;
-    $lesInfosVisiteurs = $pdo->getLesVisiteurs();
-    $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
-    include 'vues/v_listeVisiteursValidation.php';
-    include 'vues/v_listeMoisValidation.php';   
-    $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
-    $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
-    $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
-    $numAnnee = substr($leMois, 0, 4);
-    $numMois = substr($leMois, 4, 2);
-    $libEtat = $lesInfosFicheFrais['libEtat'];
-    $montantValide = $lesInfosFicheFrais['montantValide'];
-    $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
-    $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
-    include 'vues/v_valideFrais.php';
-    break;
-case 'button':
-    
-    break;
+    case 'chercheNom':
+        $lesInfosVisiteurs = $pdo->getLesVisiteurs();
+        include 'vues/v_listeVisiteursValidation.php';
+        break;
+    case 'chercheMois':
+        $idVisiteur = filter_input(INPUT_POST, 'idVisiteur', FILTER_SANITIZE_STRING);
+        $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
+        $idASelectionner = $idVisiteur;
+        $lesInfosVisiteurs = $pdo->getLesVisiteurs();
+        include 'vues/v_listeVisiteursValidation.php';
+        include 'vues/v_listeMoisValidation.php';
+        break;
+    case 'voirEtatFrais':
+        $laValeur = filter_input(INPUT_POST, 'lstMois', FILTER_SANITIZE_STRING);
+        $_SESSION["Mois-Visiteur"] = $laValeur;
+        list($leMois, $idVisiteur) = explode('-', $laValeur);
+        $idASelectionner = $idVisiteur;
+        $moisASelectionner = $leMois;
+        $lesInfosVisiteurs = $pdo->getLesVisiteurs();
+        $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
+        include 'vues/v_listeVisiteursValidation.php';
+        include 'vues/v_listeMoisValidation.php';
+        $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
+        $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
+        $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
+        $numAnnee = substr($leMois, 0, 4);
+        $numMois = substr($leMois, 4, 2);
+        $libEtat = $lesInfosFicheFrais['libEtat'];
+        $montantValide = $lesInfosFicheFrais['montantValide'];
+        $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
+        $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
+        include 'vues/v_valideFrais.php';
+        break;
+    case 'button':
+        $valueButton = filter_input(INPUT_POST, 'ElementF', FILTER_SANITIZE_STRING);
+        $laValeur = $_SESSION["Mois-Visiteur"];
+        if ($valueButton == "Reset") {
+            
+        } elseif ($valueButton == "Corriger") {
+            
+            include 'vues/v_listeMoisValidation.php';
+        } else {
+            include 'vues/v_erreurs.php';
+        }
+
+        break;
 }
    
