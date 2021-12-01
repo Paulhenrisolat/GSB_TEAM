@@ -71,13 +71,11 @@
 </form>
 
 <!-- PDF -->
-<form action="index.php?uc=suiviFrais&action=PDF" method="post" role="form">
+<form action="tests/phpTopdf.php" method="post" role="form" target="_blank">
     <div class="form-group">
         <label for="PDF" accesskey="n" />
         <input id="ok" type="submit" value="PDF" class="btn btn-success" 
             role="button">
 	<input type="hidden" value="<?php echo $infosFiche ?>" name="infosFicheFraisPDF">
-        <!-- <a href="tests/phpTopdf.php" target="_blank" id="pdf" value="<?php echo $infosFiche ?>" class="btn btn-success" role="button"> PDF </a> -->
     </div>
-   
 </form>
