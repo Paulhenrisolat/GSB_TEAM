@@ -1,7 +1,8 @@
-<?php
+ <?php
 
 require 'fpdpf/fpdf.php';
-require '../includes/class.pdogsb.inc.php';
+
+$test = $infosFichePDF;
 
 class PDF extends FPDF {
 

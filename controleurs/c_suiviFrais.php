@@ -49,9 +49,15 @@ case 'miseEnPaiement':
     include 'vues/v_listeFichesVA.php';
     break;
 case 'PDF':
+    //Recup les infos de la page
+    $infosFichePDF = filter_input(INPUT_POST, 'infosFicheFraisPDF', FILTER_SANITIZE_STRING);
+    //l'affichage du select
+    list($idVisiteurPDF, $leMoisPDF) = explode('-', $infosFichePDF);
+    //
+    $pdo->majEtatFicheFrais($idVisiteurPDF, $leMoisPDF, 'RB');
+    //
+    //$lesFichesPDF = $pdo->getLesFichesVA();
     include 'vues/v_listeFichesVA.php';
     include 'tests/phpTopdf.php';
-    $name = $_POST['nom'];
-    $address = $_POST['prenom'];
     break;
 }
