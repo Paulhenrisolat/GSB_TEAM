@@ -1,13 +1,25 @@
  <?php
 
 require 'fpdpf/fpdf.php';
-
-$test = $infosFichePDF;
+require_once '../includes/class.pdogsb.inc.php';
+require_once '../includes/fct.inc.php';
 
 class PDF extends FPDF {
 
     //Entete
-    function Header() {
+    function header() {
+        
+        //bdd
+        $pdo = PdoGsb::getPdoGsb();
+
+        $infosFichePDF = filter_input(INPUT_POST, 'infosFicheFraisPDF', FILTER_SANITIZE_STRING);
+        list($idVisiteur, $leMois) = explode('-', $infosFichePDF);
+        $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
+        $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
+        $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
+        
+        $montantValide = $lesInfosFicheFrais['montantValide'];
+        
         //logo
         $this->Image('logo.jpg', 90, 6, 30);
         //saut de ligne
@@ -30,8 +42,10 @@ class PDF extends FPDF {
         $this->Cell(170, 90, 'tableau', 1, 0, 'C');
 
         //tableInfo
+        $test = 'test';
         $this->SetXY(150, 185);
-        $this->Cell(40, 10, 'resultat', 1, 0, 'C');
+        $this->Cell(40, 10, 'TOTAL '. date('d F Y'), 1, 0, 'C');
+        $this->Cell(40, 10, $montantValide, 1, 0, 'C');
         
         //test tableau sql
         $this->SetFont('Arial', 'B', 10);
@@ -40,12 +54,13 @@ class PDF extends FPDF {
         $this->Cell(40, 10, 'Quantite', 1, 0, 'C');
         $this->Cell(40, 10, 'Montant unitaire', 1, 0, 'C');
         $this->Cell(40, 10, 'Total', 1, 0, 'C');
+        
         //tableau rempli
 
     }
 
     // Simple table
-    function HeaderTable() {
+    function headerTable() {
         //$this->Cell(0, 0, 'Mois ', 1, 0, 'C');
         $this->SetY(100);
         $this->SetFont('Arial', 'B', 14);
@@ -54,7 +69,7 @@ class PDF extends FPDF {
     }
 
     //Bas de page
-    function Footer() {
+    function footer() {
         //position Y
         $this->SetY(-80);
         $this->Cell(290, 12, "Fait à Paris, le " . date('d F Y'), 0, 0, 'C');
