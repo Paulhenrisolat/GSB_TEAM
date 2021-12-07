@@ -559,9 +559,9 @@ class PdoGsb
     }
     
     /**
-     * Retourne les fiches VA des visiteurs
+     * Retourne les fiches à valider et mettre en paiement des visiteurs
      *
-     * @return les fiches VA sous la forme d'un tableau
+     * @return les fiches à valider et mettre en paiement sous la forme d'un tableau
      */
     public function getLesFichesVA()
     {

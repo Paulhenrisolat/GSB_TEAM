@@ -30,8 +30,8 @@ switch ($action) {
         include 'vues/v_listeMoisValidation.php';
         break;
     case 'voirEtatFrais':
-        $laValeur = filter_input(INPUT_POST, 'lstMois', FILTER_SANITIZE_STRING);
-        list($leMois, $idVisiteur) = explode('-', $laValeur);
+        $infosFiche = filter_input(INPUT_POST, 'lstMois', FILTER_SANITIZE_STRING);
+        list($leMois, $idVisiteur) = explode('-', $infosFiche);
         $idASelectionner = $idVisiteur;
         $moisASelectionner = $leMois;
         $lesInfosVisiteurs = $pdo->getLesVisiteurs();
@@ -50,18 +50,21 @@ switch ($action) {
         include 'vues/v_valideFrais.php';
         break;
     case 'actualisationFraisForfaitises':
-        $listFrais = filter_input(INPUT_POST, 'lesFrais', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
-        //$laValeur = filter_input(INPUT_POST, 'laValeur', FILTER_SANITIZE_STRING);
-        //list($leMois, $idVisiteur) = explode('-', $laValeur);
-        if (lesQteFraisValides($listFrais)) {
+        $infosFiche = filter_input(INPUT_POST, 'infosFicheFrais', FILTER_SANITIZE_STRING);
+        list($leMois, $idVisiteur) = explode('-', $infosFiche);
+        $idASelectionner = $idVisiteur;
+        $moisASelectionner = $leMois;
+        $lesInfosVisiteurs = $pdo->getLesVisiteurs();
+        $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
+        include 'vues/v_listeVisiteursValidation.php';
+        include 'vues/v_listeMoisValidation.php';
+		if (lesQteFraisValides($listFrais)) {
             $lesFraisForfait = $listFrais;
             alert("Modification pris en compte");
         } else {
             ajouterErreur('Les valeurs des frais doivent être numériques');
             include 'vues/v_erreurs.php';
         }
-
-
         break;
 }
    
