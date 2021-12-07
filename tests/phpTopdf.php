@@ -9,15 +9,22 @@ class PDF extends FPDF {
     //Entete
     function header() {
         
-        //bdd
+        // BDD
         $pdo = PdoGsb::getPdoGsb();
 
         $infosFichePDF = filter_input(INPUT_POST, 'infosFicheFraisPDF', FILTER_SANITIZE_STRING);
         list($idVisiteur, $leMois) = explode('-', $infosFichePDF);
+        // Nom et prénom du visiteur
+        $infosVisiteur = $pdo->getNomPrenomVisiteur($idVisiteur);
         $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
+        // Frais forfaitisés de la fiche de frais
         $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
         $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
         
+        $forfaitEtape = $lesFraisForfait[0];
+        $fraisKilometrique = $lesFraisForfait[1];
+        $nuiteeHotel = $lesFraisForfait[2];
+        $repasRestaurant = $lesFraisForfait[3];
         $montantValide = $lesInfosFicheFrais['montantValide'];
         
         //logo

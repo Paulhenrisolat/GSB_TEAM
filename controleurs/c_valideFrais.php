@@ -58,7 +58,7 @@ switch ($action) {
         $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
         include 'vues/v_listeVisiteursValidation.php';
         include 'vues/v_listeMoisValidation.php';
-		if (lesQteFraisValides($listFrais)) {
+	if (lesQteFraisValides($listFrais)) {
             $lesFraisForfait = $listFrais;
             alert("Modification pris en compte");
         } else {
