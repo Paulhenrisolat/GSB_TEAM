@@ -257,6 +257,7 @@ class PdoGsb
         $requetePrepare = PdoGSB::$monPdo->prepare(
             'SELECT fraisforfait.id as idfrais, '
             . 'fraisforfait.libelle as libelle, '
+            . 'fraisforfait.montant as montantunitaire, '
             . 'lignefraisforfait.quantite as quantite '
             . 'FROM lignefraisforfait '
             . 'INNER JOIN fraisforfait '
@@ -559,9 +560,9 @@ class PdoGsb
     }
     
     /**
-     * Retourne les fiches VA des visiteurs
+     * Retourne les fiches à valider et mettre en paiement des visiteurs
      *
-     * @return les fiches VA sous la forme d'un tableau
+     * @return les fiches à valider et mettre en paiement sous la forme d'un tableau
      */
     public function getLesFichesVA()
     {
