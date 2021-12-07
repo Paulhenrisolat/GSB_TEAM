@@ -31,7 +31,6 @@ switch ($action) {
         break;
     case 'voirEtatFrais':
         $laValeur = filter_input(INPUT_POST, 'lstMois', FILTER_SANITIZE_STRING);
-        $_SESSION["Mois-Visiteur"] = $laValeur;
         list($leMois, $idVisiteur) = explode('-', $laValeur);
         $idASelectionner = $idVisiteur;
         $moisASelectionner = $leMois;
@@ -50,17 +49,18 @@ switch ($action) {
         $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
         include 'vues/v_valideFrais.php';
         break;
-    case 'button':
-        $valueButton = filter_input(INPUT_POST, 'ElementF', FILTER_SANITIZE_STRING);
-        $laValeur = $_SESSION["Mois-Visiteur"];
-        if ($valueButton == "Reset") {
-            
-        } elseif ($valueButton == "Corriger") {
-            
-            include 'vues/v_listeMoisValidation.php';
+    case 'actualisationFraisForfaitises':
+        $listFrais = filter_input(INPUT_POST, 'lesFrais', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
+        //$laValeur = filter_input(INPUT_POST, 'laValeur', FILTER_SANITIZE_STRING);
+        //list($leMois, $idVisiteur) = explode('-', $laValeur);
+        if (lesQteFraisValides($listFrais)) {
+            $lesFraisForfait = $listFrais;
+            alert("Modification pris en compte");
         } else {
+            ajouterErreur('Les valeurs des frais doivent être numériques');
             include 'vues/v_erreurs.php';
         }
+
 
         break;
 }
