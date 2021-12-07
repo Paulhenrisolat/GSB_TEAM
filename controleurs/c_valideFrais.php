@@ -30,9 +30,8 @@ switch ($action) {
         include 'vues/v_listeMoisValidation.php';
         break;
     case 'voirEtatFrais':
-        $laValeur = filter_input(INPUT_POST, 'lstMois', FILTER_SANITIZE_STRING);
-        $_SESSION["Mois-Visiteur"] = $laValeur;
-        list($leMois, $idVisiteur) = explode('-', $laValeur);
+        $infosFiche = filter_input(INPUT_POST, 'lstMois', FILTER_SANITIZE_STRING);
+        list($leMois, $idVisiteur) = explode('-', $infosFiche);
         $idASelectionner = $idVisiteur;
         $moisASelectionner = $leMois;
         $lesInfosVisiteurs = $pdo->getLesVisiteurs();
@@ -50,18 +49,15 @@ switch ($action) {
         $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
         include 'vues/v_valideFrais.php';
         break;
-    case 'button':
-        $valueButton = filter_input(INPUT_POST, 'ElementF', FILTER_SANITIZE_STRING);
-        $laValeur = $_SESSION["Mois-Visiteur"];
-        if ($valueButton == "Reset") {
-            
-        } elseif ($valueButton == "Corriger") {
-            
-            include 'vues/v_listeMoisValidation.php';
-        } else {
-            include 'vues/v_erreurs.php';
-        }
-
+    case 'actualisationFraisForfaitises':
+        $infosFiche = filter_input(INPUT_POST, 'infosFicheFrais', FILTER_SANITIZE_STRING);
+        list($leMois, $idVisiteur) = explode('-', $infosFiche);
+        $idASelectionner = $idVisiteur;
+        $moisASelectionner = $leMois;
+        $lesInfosVisiteurs = $pdo->getLesVisiteurs();
+        $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
+        include 'vues/v_listeVisiteursValidation.php';
+        include 'vues/v_listeMoisValidation.php';
         break;
 }
    
