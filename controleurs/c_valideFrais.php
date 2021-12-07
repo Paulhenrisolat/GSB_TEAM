@@ -50,6 +50,7 @@ switch ($action) {
         include 'vues/v_valideFrais.php';
         break;
     case 'actualisationFraisForfaitises':
+        $listFrais = filter_input(INPUT_POST, 'lesFrais', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
         $infosFiche = filter_input(INPUT_POST, 'infosFicheFrais', FILTER_SANITIZE_STRING);
         list($leMois, $idVisiteur) = explode('-', $infosFiche);
         $idASelectionner = $idVisiteur;
@@ -58,9 +59,10 @@ switch ($action) {
         $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
         include 'vues/v_listeVisiteursValidation.php';
         include 'vues/v_listeMoisValidation.php';
-	if (lesQteFraisValides($listFrais)) {
+		if (lesQteFraisValides($listFrais)) {
             $lesFraisForfait = $listFrais;
-            alert("Modification pris en compte");
+            $message='Modification pris en compte';
+            echo '<script type="text/javascript">window.alert("'.$message.'");</script>';
         } else {
             ajouterErreur('Les valeurs des frais doivent être numériques');
             include 'vues/v_erreurs.php';
