@@ -18,26 +18,40 @@ $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 
 switch ($action) {
     case 'chercheNom':
-        $lesInfosVisiteurs = $pdo->getLesVisiteurs();
+        $lesInfosVisiteurs = $pdo->getLesVisiteursCL();
         include 'vues/v_listeVisiteursValidation.php';
         break;
     case 'chercheMois':
         $idVisiteur = filter_input(INPUT_POST, 'idVisiteur', FILTER_SANITIZE_STRING);
-        $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
+        $lesMois = $pdo->getLesMoisDisponiblesCL($idVisiteur);
         $idASelectionner = $idVisiteur;
-        $lesInfosVisiteurs = $pdo->getLesVisiteurs();
+        $lesInfosVisiteurs = $pdo->getLesVisiteursCL();
         include 'vues/v_listeVisiteursValidation.php';
         include 'vues/v_listeMoisValidation.php';
         break;
-    case 'voirEtatFrais':
-        $infosFiche = filter_input(INPUT_POST, 'lstMois', FILTER_SANITIZE_STRING);
+    case 'voirEtatFrais' || 'actualisationFraisForfaitises' || 'actualisationFraisHorsForfait':
+        $infosFiche = filter_input(INPUT_POST, 'infosFicheFrais', FILTER_SANITIZE_STRING);
         list($leMois, $idVisiteur) = explode('-', $infosFiche);
         $idASelectionner = $idVisiteur;
         $moisASelectionner = $leMois;
-        $lesInfosVisiteurs = $pdo->getLesVisiteurs();
-        $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
+        $lesInfosVisiteurs = $pdo->getLesVisiteursCL();
+        $lesMois = $pdo->getLesMoisDisponiblesCL($idVisiteur);
         include 'vues/v_listeVisiteursValidation.php';
         include 'vues/v_listeMoisValidation.php';
+        if ($action == 'actualisationFraisForfaitises') {
+            $listFrais = filter_input(INPUT_POST, 'lesFrais', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
+            if (lesQteFraisValides($listFrais)) {
+                $pdo->majFraisForfait($idVisiteur, $leMois, $listFrais);
+                ajouterMessage('Modification pris en compte');
+                include 'vues/v_messages.php';
+            } else {
+                ajouterErreur('Les valeurs des frais doivent être numériques');
+                include 'vues/v_erreurs.php';
+            }
+        } elseif ($action == 'actualisationFraisHorsForfait') {
+            $infosFiche = filter_input(INPUT_POST, 'horsForfait', FILTER_SANITIZE_STRING);
+            
+        } else {}
         $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
         $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
         $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
@@ -48,25 +62,6 @@ switch ($action) {
         $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
         $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
         include 'vues/v_valideFrais.php';
-        break;
-    case 'actualisationFraisForfaitises':
-        $listFrais = filter_input(INPUT_POST, 'lesFrais', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
-        $infosFiche = filter_input(INPUT_POST, 'infosFicheFrais', FILTER_SANITIZE_STRING);
-        list($leMois, $idVisiteur) = explode('-', $infosFiche);
-        $idASelectionner = $idVisiteur;
-        $moisASelectionner = $leMois;
-        $lesInfosVisiteurs = $pdo->getLesVisiteurs();
-        $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
-        include 'vues/v_listeVisiteursValidation.php';
-        include 'vues/v_listeMoisValidation.php';
-		if (lesQteFraisValides($listFrais)) {
-            $lesFraisForfait = $listFrais;
-            $message='Modification pris en compte';
-            echo '<script type="text/javascript">window.alert("'.$message.'");</script>';
-        } else {
-            ajouterErreur('Les valeurs des frais doivent être numériques');
-            include 'vues/v_erreurs.php';
-        }
         break;
 }
    
