@@ -1,7 +1,7 @@
 <?php
 
 ?>
-
+<div class="row">
 <form action="index.php?uc=validationFrais&action=voirEtatFrais" 
       method="post" role="form">
     <label for="infosFicheFrais" accesskey="n">Choisir le mois : </label>
@@ -28,3 +28,4 @@
     <input id="ok" type="submit" value="Valider" class="btn btn-success"
            role="button">
 </form>
+</div>
