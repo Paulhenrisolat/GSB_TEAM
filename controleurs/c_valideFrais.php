@@ -29,7 +29,7 @@ switch ($action) {
         include 'vues/v_listeVisiteursValidation.php';
         include 'vues/v_listeMoisValidation.php';
         break;
-    case 'voirEtatFrais' || 'actualisationFraisForfaitises':
+    case 'voirEtatFrais' || 'actualisationFraisForfaitises' || 'actualisationFraisHorsForfait':
         $infosFiche = filter_input(INPUT_POST, 'infosFicheFrais', FILTER_SANITIZE_STRING);
         list($leMois, $idVisiteur) = explode('-', $infosFiche);
         $idASelectionner = $idVisiteur;
@@ -49,11 +49,9 @@ switch ($action) {
                 include 'vues/v_erreurs.php';
             }
         } elseif ($action == 'actualisationFraisHorsForfait') {
+            $infosFiche = filter_input(INPUT_POST, 'horsForfait', FILTER_SANITIZE_STRING);
             
-        } else {
-            ajouterErreur('Action non reconnu');
-            include 'vues/v_erreurs.php';
-        }
+        } else {}
         $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
         $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
         $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
