@@ -150,7 +150,7 @@ class PdoGsb
      *
      * @return l'id, le nom, le prénom, le statut et l'email sous la forme d'un tableau associatif
      */
-	     public function getLesVisiteurs()
+    public function getLesVisiteurs()
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
             'SELECT utilisateur.id AS id, utilisateur.nom AS nom, utilisateur.prenom AS prenom '
