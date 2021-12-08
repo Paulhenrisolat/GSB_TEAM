@@ -28,6 +28,7 @@ case 'selectionnerMois':
     break;
 case 'voirEtatFrais':
     $leMois = filter_input(INPUT_POST, 'lstMois', FILTER_SANITIZE_STRING);
+    $infosFiche = $idVisiteur . '-' . $leMois;
     $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
     $moisASelectionner = $leMois;
     include 'vues/v_listeMois.php';
