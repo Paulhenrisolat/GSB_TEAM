@@ -38,33 +38,10 @@ switch ($action) {
         $lesMois = $pdo->getLesMoisDisponiblesCL($idVisiteur);
         include 'vues/v_listeVisiteursValidation.php';
         include 'vues/v_listeMoisValidation.php';
-        if ($action == 'voirEtatFrais') {
-            $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
-            $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
-            $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
-            $numAnnee = substr($leMois, 0, 4);
-            $numMois = substr($leMois, 4, 2);
-            $libEtat = $lesInfosFicheFrais['libEtat'];
-            $montantValide = $lesInfosFicheFrais['montantValide'];
-            $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
-            $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
-        } elseif ($action == 'actualisationFraisForfaitises') {
+        if ($action == 'actualisationFraisForfaitises') {
             $listFrais = filter_input(INPUT_POST, 'lesFrais', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
             if (lesQteFraisValides($listFrais)) {
-                $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
-                $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
-                $i = 0;
-                foreach ($listFrais as $unFrais) {
-                    $lesFraisForfait[$i]['quantite'] = $unFrais;
-                    $i++;
-                }
-                $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
-                $numAnnee = substr($leMois, 0, 4);
-                $numMois = substr($leMois, 4, 2);
-                $libEtat = $lesInfosFicheFrais['libEtat'];
-                $montantValide = $lesInfosFicheFrais['montantValide'];
-                $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
-                $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
+                $pdo->majFraisForfait($idVisiteur, $leMois, $listFrais);
                 ajouterMessage('Modification pris en compte');
                 include 'vues/v_messages.php';
             } else {
@@ -77,8 +54,16 @@ switch ($action) {
             ajouterErreur('Action non reconnu');
             include 'vues/v_erreurs.php';
         }
+        $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
+        $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
+        $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
+        $numAnnee = substr($leMois, 0, 4);
+        $numMois = substr($leMois, 4, 2);
+        $libEtat = $lesInfosFicheFrais['libEtat'];
+        $montantValide = $lesInfosFicheFrais['montantValide'];
+        $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
+        $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
         include 'vues/v_valideFrais.php';
         break;
-
 }
    
