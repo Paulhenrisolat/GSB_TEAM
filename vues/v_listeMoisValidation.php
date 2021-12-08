@@ -4,8 +4,8 @@
 <div class="row">
 <form action="index.php?uc=validationFrais&action=voirEtatFrais" 
       method="post" role="form">
-    <label for="lstMois" accesskey="n">Choisir le mois : </label>
-    <select id="lstMois" name="lstMois">
+    <label for="infosFicheFrais" accesskey="n">Choisir le mois : </label>
+    <select id="infosFicheFrais" name="infosFicheFrais">
     <?php
     foreach ($lesMois as $unMois) {
         $mois = $unMois['mois'];

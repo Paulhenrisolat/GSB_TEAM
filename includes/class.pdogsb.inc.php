@@ -153,12 +153,13 @@ class PdoGsb
     public function getLesVisiteurs()
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
-            'SELECT utilisateur.id AS id, utilisateur.nom AS nom, utilisateur.prenom AS prenom '
-            . 'FROM utilisateur '
-            . 'WHERE utilisateur.statut = :leStatut '
+            'SELECT distinct utilisateur.id AS id, utilisateur.nom AS nom, utilisateur.prenom AS prenom '
+            . 'FROM utilisateur inner join fichefrais on utilisateur.id = fichefrais.idvisiteur '
+            . 'WHERE utilisateur.statut = :leStatut and fichefrais.idetat = :idEtat '
             . 'ORDER BY utilisateur.nom, utilisateur.prenom'
         );
         $requetePrepare->bindValue(':leStatut', 'Visiteur', PDO::PARAM_STR);
+        $requetePrepare->bindValue(':idEtat', 'CL', PDO::PARAM_STR);
         $requetePrepare->execute();
         $lesVisiteurs = array();
         while ($leVisiteur = $requetePrepare->fetch()) {
@@ -544,6 +545,38 @@ class PdoGsb
             . 'ORDER BY fichefrais.mois desc'
         );
         $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        $lesMois = array();
+        while ($laLigne = $requetePrepare->fetch()) {
+            $mois = $laLigne['mois'];
+            $numAnnee = substr($mois, 0, 4);
+            $numMois = substr($mois, 4, 2);
+            $lesMois[] = array(
+                'mois' => $mois,
+                'numAnnee' => $numAnnee,
+                'numMois' => $numMois
+            );
+        }
+        return $lesMois;
+    }
+    
+    /**
+     * Retourne les mois pour lesquels un visiteur a une fiche de frais qui est dans l'état CL
+     *
+     * @param String $idVisiteur ID du visiteur
+     *
+     * @return un tableau associatif de clé un mois -aaaamm- et de valeurs
+     *         l'année et le mois correspondant
+     */
+    public function getLesMoisDisponiblesCL($idVisiteur)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+            'SELECT fichefrais.mois AS mois FROM fichefrais '
+            . 'WHERE fichefrais.idvisiteur = :unIdVisiteur and fichefrais.idetat = :idEtat '
+            . 'ORDER BY fichefrais.mois asc'
+        );
+        $requetePrepare->bindValue(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindValue(':idEtat', 'CL', PDO::PARAM_STR);
         $requetePrepare->execute();
         $lesMois = array();
         while ($laLigne = $requetePrepare->fetch()) {
