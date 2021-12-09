@@ -21,14 +21,18 @@ $numMois = substr($mois, 4, 2);
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 switch ($action) {
 case 'saisirFrais':
+    $lesVehicules = $pdo->getLesVehicules();
+    $vehiculeASelectionner = $lesVehicules['0'];
     if ($pdo->estPremierFraisMois($idVisiteur, $mois)) {
         $pdo->creeNouvellesLignesFrais($idVisiteur, $mois);
     }
     break;
 case 'validerMajFraisForfait':
     $lesFrais = filter_input(INPUT_POST, 'lesFrais', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
+    $leVehicule = filter_input(INPUT_POST, 'vehicule', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
     if (lesQteFraisValides($lesFrais)) {
         $pdo->majFraisForfait($idVisiteur, $mois, $lesFrais);
+        $pdo->majFicheVehicule($idVisiteur, $mois, $leVehicule['id']);
     } else {
         ajouterErreur('Les valeurs des frais doivent être numériques');
         include 'vues/v_erreurs.php';

@@ -49,9 +49,13 @@ switch ($action) {
                 include 'vues/v_erreurs.php';
             }
         } elseif ($action == 'actualisationFraisHorsForfait') {
-            $infosFiche = filter_input(INPUT_POST, 'horsForfait', FILTER_SANITIZE_STRING);
+            list($leMois, $idVisiteur, $idHorsForfait) = explode('-', $infosFiche);
+            $infosFiche = ($leMois . '-' . $idVisiteur);
+            $montant = filter_input(INPUT_POST, 'montant', FILTER_SANITIZE_STRING);
+            $libelle = filter_input(INPUT_POST, 'libelle', FILTER_SANITIZE_STRING);
+            $date = filter_input(INPUT_POST, 'date', FILTER_SANITIZE_STRING);
             
-        } else {}
+        }
         $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
         $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
         $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
