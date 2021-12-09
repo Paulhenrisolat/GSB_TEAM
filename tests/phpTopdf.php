@@ -14,8 +14,6 @@ class PDF extends FPDF {
         //BDD
         $pdo = PdoGsb::getPdoGsb();
 
-        $infosFichePDF = filter_input(INPUT_POST, 'infosFicheFraisPDF', FILTER_SANITIZE_STRING);
-        list($idVisiteur, $leMois) = explode('-', $infosFichePDF);
         //Nom et prénom du visiteur
         $infosVisiteur = $pdo->getNomPrenomVisiteur($idVisiteur);
         $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
@@ -157,6 +155,15 @@ $pdf = new PDF();
 $pdf->AliasNbPages();
 $pdf->AddPage();
 
+//BDD
+        $pdo = PdoGsb::getPdoGsb();
+
+        $infosFichePDF = filter_input(INPUT_POST, 'infosFicheFraisPDF', FILTER_SANITIZE_STRING);
+        list($idVisiteur, $leMois) = explode('-', $infosFichePDF);
+        //Nom et prénom du visiteur
+        $infosVisiteur = $pdo->getNomPrenomVisiteur($idVisiteur);
+
 //sortie
-$pdf->Output();
+$pdfName = 'RemboursementFrais_' . $infosVisiteur['prenom'] . $infosVisiteur['nom'] . '_' . date('d.m.Y') . '.pdf';
+$pdf->Output('D', $pdfName);
 
