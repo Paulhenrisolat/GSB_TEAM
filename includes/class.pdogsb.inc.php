@@ -192,6 +192,41 @@ class PdoGsb
     }
     
     /**
+     * Retourne sous la forme d'un tableau associatif tous les véhicules
+     * enregistrés dans la base de données.
+     * 
+     * @return tous les véhicules sous la forme d'un tableau associatif
+     */
+    public function getLesVehicules()
+    {
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+            'SELECT * FROM vehicules '
+            . 'ORDER BY vehicules.prixkm'
+        );
+        $requetePrepare->execute();
+        return $requetePrepare->fetchAll();
+    }
+    
+    /**
+     * Retourne sous la forme d'un tableau associatif le véhicule
+     * concerné par l'argument.
+     * 
+     * @return un véhicule sous la forme d'un tableau associatif
+     */
+    public function getUnVehicule($idVehicule)
+    {
+        $requetePrepare = PdoGsb::$monPdo->prepare(
+            'SELECT vehicules.id as id, vehicules.libelle as libelle, '
+            . 'vehicules.prixkm as prixkm '
+            . 'FROM vehicules '
+            . 'WHERE id = :idVehicule'
+        );
+        $requetePrepare->bindParam(':idVehicule', $idVehicule, PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return $requetePrepare->fetchAll();
+    }
+    
+    /**
      * Retourne sous forme d'un tableau associatif toutes les lignes de frais
      * hors forfait concernées par les deux arguments.
      * La boucle foreach ne peut être utilisée ici car on procède
@@ -357,6 +392,20 @@ class PdoGsb
             $requetePrepare->bindParam(':idFrais', $unIdFrais, PDO::PARAM_STR);
             $requetePrepare->execute();
         }
+    }
+    
+    public function majFicheVehicule($idVisiteur, $mois, $idVehicule)
+    {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+                'UPDATE fichefrais '
+                . 'SET fichefrais.idvehicule = :idVehicule '
+                . 'WHERE fichefrais.idvisiteur = :unIdVisiteur '
+                . 'AND fichefrais.mois = :unMois'
+            );
+        $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':idVehicule', $idVehicule, PDO::PARAM_STR);
+        $requetePrepare->execute();
     }
 
     /**
