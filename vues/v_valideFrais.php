@@ -47,10 +47,17 @@
                     <tr>
                         <td><input type="char" value="<?php echo $date ?>" name="date"></td>
                         <td><input type="char" value="<?php echo $libelle ?>" name="libelle"></td>
-                        <td><input type="char" value="<?php echo $montant ?>" name="montant"><td>
-                            <input id="ok" type="submit" value="Corriger" class="btn btn-success" 
+                        <td><input type="char" value="<?php echo $montant ?>" name="montant"></td>
+                        <td><input id="ok" name="bouton" type="submit" value="Corriger" class="btn btn-success" 
                                    role="button">
                             <input type="hidden" value="<?php echo $infosFiche."-".$id ?>" name="infosFicheFrais">
+                            <?php if(preg_match("/^(REFUSER:)/",$unFraisHorsForfait['libelle'])){ ?>
+                                <input id="annuler" name="bouton" type="submit" value="Annuler" class="btn btn-info" 
+                                       role="button">
+                            <?php }else{ ?>
+                                <input id="refuser" name="bouton" type="submit" value="Refuser" class="btn btn-info" 
+                                       role="button">
+                            <?php } ?>
                             <input id="annuler" type="reset" value="Réinitialiser" class="btn btn-danger" 
                                    role="button">
                         </td>
@@ -62,9 +69,11 @@
     </div>  
 </div>
 <p> Nombre de justificatifs : <input type="char" value="<?php echo $nbJustificatifs ?>" readonly> </p>
-<form action="" method="post" role="form">
+<form action="index.php?uc=validationFrais&action=valideFiche" 
+      method="post" role="form">
     <input id="ok" type="submit" value="Valider" class="btn btn-success" 
            role="button">
+    <input type="hidden" value="<?php echo $infosFiche."-".$id ?>" name="infosFicheFrais">
     <input id="annuler" type="reset" value="Réinitialiser" class="btn btn-danger" 
            role="button">
 </form>

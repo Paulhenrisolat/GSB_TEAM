@@ -29,7 +29,7 @@ switch ($action) {
         include 'vues/v_listeVisiteursValidation.php';
         include 'vues/v_listeMoisValidation.php';
         break;
-    case 'voirEtatFrais' || 'actualisationFraisForfaitises' || 'actualisationFraisHorsForfait':
+    case 'voirEtatFrais' || 'actualisationFraisForfaitises' || 'actualisationFraisHorsForfait' || 'valideFiche':
         $infosFiche = filter_input(INPUT_POST, 'infosFicheFrais', FILTER_SANITIZE_STRING);
         list($leMois, $idVisiteur) = explode('-', $infosFiche);
         $idASelectionner = $idVisiteur;
@@ -49,12 +49,38 @@ switch ($action) {
                 include 'vues/v_erreurs.php';
             }
         } elseif ($action == 'actualisationFraisHorsForfait') {
-            list($leMois, $idVisiteur, $idHorsForfait) = explode('-', $infosFiche);
-            $infosFiche = ($leMois . '-' . $idVisiteur);
-            $montant = filter_input(INPUT_POST, 'montant', FILTER_SANITIZE_STRING);
-            $libelle = filter_input(INPUT_POST, 'libelle', FILTER_SANITIZE_STRING);
-            $date = filter_input(INPUT_POST, 'date', FILTER_SANITIZE_STRING);
+            $bouton = filter_input(INPUT_POST, 'bouton');
+            if($bouton == "Corriger"){
+                list($leMois, $idVisiteur, $idHorsForfait) = explode('-', $infosFiche);
+                $infosFiche = ($leMois . '-' . $idVisiteur);
+                $montant = filter_input(INPUT_POST, 'montant', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+                $libelle = filter_input(INPUT_POST, 'libelle', FILTER_SANITIZE_STRING);
+                $date = filter_input(INPUT_POST, 'date', FILTER_SANITIZE_STRING);
+                list($jour, $mois, $annee) = explode('/', $date);
+                $date = $annee . '-' . $mois . '-' . $jour;
+                if (preg_match("^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$^", $date) && estFloatPositif($montant) == true) {
+                    $pdo->majFraisHorsForfait($idVisiteur, $leMois, $date, $libelle, $montant, $idHorsForfait);
+                    ajouterMessage('Modification pris en compte');
+                    include 'vues/v_messages.php';
+                } else {
+                    ajouterErreur('Les valeurs entrées ne sont pas correct');
+                    include 'vues/v_erreurs.php';
+                }
+            } elseif($bouton == "Refuser") {
+                list($leMois, $idVisiteur, $idHorsForfait) = explode('-', $infosFiche);
+                $infosFiche = ($leMois . '-' . $idVisiteur);
+                $libelle = filter_input(INPUT_POST, 'libelle', FILTER_SANITIZE_STRING);
+                $pdo->refuserFraisHorsForfait($idVisiteur, $leMois, $libelle, $idHorsForfait);
+            } elseif($bouton == "Annuler") {
+                list($leMois, $idVisiteur, $idHorsForfait) = explode('-', $infosFiche);
+                $infosFiche = ($leMois . '-' . $idVisiteur);
+                $libelle = filter_input(INPUT_POST, 'libelle', FILTER_SANITIZE_STRING);
+                $pdo->annulerFraisHorsForfait($idVisiteur, $leMois, $libelle, $idHorsForfait);
+            }
             
+        } elseif ($action == 'valideFiche'){
+            $pdo->majEtatFicheFrais($idVisiteur, $leMois, "VA");
+            break;
         }
         $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
         $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);

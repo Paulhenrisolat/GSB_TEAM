@@ -400,25 +400,85 @@ class PdoGsb {
      *
      * @param String $idVisiteur    ID du visiteur
      * @param String $mois          Mois sous la forme aaaamm
-     * @param Date   $date          Date de la ligne HorsForfait a modifier
+     * @param Date   $date          Date de la ligne HorsForfait a modifier (Y-M-D)
      * @param String $libelle       Libelle de la ligne HorsForfait a modifier
      * @param Int    $montant       Montant de la ligne HorsForfait a modifier
-     * @param String $idHorsForfait  Id de la ligneFraisHorsForfait
+     * @param String $idHorsForfait Id de la ligneFraisHorsForfait
      * 
      * @return null
      */
     public function majFraisHorsForfait($idVisiteur, $mois, $date, $libelle, $montant, $idHorsForfait) {
         $requetePrepare = PdoGSB::$monPdo->prepare(
-                'UPDATE lignefraisforfait '
-                . 'SET lignefraisforfait.quantite = :uneQte '
-                . 'WHERE lignefraisforfait.idvisiteur = :unIdVisiteur '
-                . 'AND lignefraisforfait.mois = :unMois '
-                . 'AND lignefraisforfait.idfraisforfait = :idFrais'
+                'UPDATE lignefraishorsforfait '
+                . 'SET lignefraishorsforfait.montant = :unMontant, lignefraishorsforfait.libelle = :unLibelle, lignefraishorsforfait.date = :uneDate '
+                . 'WHERE lignefraishorsforfait.idvisiteur = :unIdVisiteur '
+                . 'AND lignefraishorsforfait.mois = :unMois '
+                . 'AND lignefraishorsforfait.id = :unId'
         );
-        $requetePrepare->bindParam(':uneQte', $qte, PDO::PARAM_INT);
+        $requetePrepare->bindParam(':unMontant', $montant, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unLibelle', $libelle, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':uneDate', $date, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
-        $requetePrepare->bindParam(':idFrais', $unIdFrais, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unId', $idHorsForfait, PDO::PARAM_STR);
+        $requetePrepare->execute();
+    }
+    
+    /**
+     * Met à jour la table ligneFraisHorsForfait
+     * Rajoute "REFUSER:" devant le libelle
+     *
+     * @param String $idVisiteur    ID du visiteur
+     * @param String $mois          Mois sous la forme aaaamm
+     * @param String $libelle       Libelle de la ligne HorsForfait a modifier
+     * @param String $idHorsForfait Id de la ligneFraisHorsForfait
+     * 
+     * @return null
+     */
+    public function refuserFraisHorsForfait($idVisiteur, $mois, $libelle, $idHorsForfait){
+        if(!preg_match("/^(REFUSER:)/",$libelle)){
+            $libelle = "REFUSER:" . $libelle;
+        }
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+                'UPDATE lignefraishorsforfait '
+                . 'SET lignefraishorsforfait.libelle = :unLibelle '
+                . 'WHERE lignefraishorsforfait.idvisiteur = :unIdVisiteur '
+                . 'AND lignefraishorsforfait.mois = :unMois '
+                . 'AND lignefraishorsforfait.id = :unId'
+        );
+        $requetePrepare->bindParam(':unLibelle', $libelle, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unId', $idHorsForfait, PDO::PARAM_STR);
+        $requetePrepare->execute();
+    }
+    
+    /**
+     * Met à jour la table ligneFraisHorsForfait
+     * Enleve "REFUSER:" devant le libelle
+     *
+     * @param String $idVisiteur    ID du visiteur
+     * @param String $mois          Mois sous la forme aaaamm
+     * @param String $libelle       Libelle de la ligne HorsForfait a modifier
+     * @param String $idHorsForfait Id de la ligneFraisHorsForfait
+     * 
+     * @return null
+     */
+    public function annulerFraisHorsForfait($idVisiteur, $mois, $libelle, $idHorsForfait){
+        if(preg_match("/^(REFUSER:)/",$libelle)){
+            list($refuser, $libelle) = explode(':', $libelle);
+        }
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+                'UPDATE lignefraishorsforfait '
+                . 'SET lignefraishorsforfait.libelle = :unLibelle '
+                . 'WHERE lignefraishorsforfait.idvisiteur = :unIdVisiteur '
+                . 'AND lignefraishorsforfait.mois = :unMois '
+                . 'AND lignefraishorsforfait.id = :unId'
+        );
+        $requetePrepare->bindParam(':unLibelle', $libelle, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unId', $idHorsForfait, PDO::PARAM_STR);
         $requetePrepare->execute();
     }
 

@@ -125,6 +125,18 @@ function estEntierPositif($valeur)
 }
 
 /**
+ * Indique si une valeur est un nombres à virgules flottantes avec 2 chiffres aprés la virgule positif ou nul
+ *
+ * @param Integer $valeur Valeur
+ *
+ * @return Boolean vrai ou faux
+ */
+function estFloatPositif($valeur)
+{
+    return preg_match('/[^0-9].[0-9]{2}/', $valeur) == 0;
+}
+
+/**
  * Indique si un tableau de valeurs est constitué d'entiers positifs ou nuls
  *
  * @param Array $tabEntiers Un tableau d'entier
