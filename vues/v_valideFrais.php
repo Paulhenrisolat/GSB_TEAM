@@ -73,5 +73,5 @@
       method="post" role="form">
     <input id="ok" type="submit" value="Valider" class="btn btn-success" 
            role="button">
-    <input type="hidden" value="<?php echo $infosFiche."-".$id ?>" name="infosFicheFrais">
+    <input type="hidden" value="<?php echo $infosFiche ?>" name="infosFicheFrais">
 </form>
