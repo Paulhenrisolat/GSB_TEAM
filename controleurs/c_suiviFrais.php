@@ -29,6 +29,7 @@ case 'voirSuiviFrais':
     $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
     $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
     $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
+    $leVehicule = $pdo->getLeVehicule($lesInfosFicheFrais['idvehicule']);
     $nom = $infosVisiteur['nom'];
     $prenom = $infosVisiteur['prenom'];
     $numAnnee = substr($leMois, 0, 4);

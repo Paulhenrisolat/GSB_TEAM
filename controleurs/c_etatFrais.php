@@ -35,6 +35,7 @@ case 'voirEtatFrais':
     $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
     $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
     $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
+    $leVehicule = $pdo->getLeVehicule($lesInfosFicheFrais['idvehicule']);
     $numAnnee = substr($leMois, 0, 4);
     $numMois = substr($leMois, 4, 2);
     $libEtat = $lesInfosFicheFrais['libEtat'];

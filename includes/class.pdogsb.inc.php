@@ -205,7 +205,7 @@ class PdoGsb {
      * 
      * @return un véhicule sous la forme d'un tableau associatif
      */
-    public function getUnVehicule($idVehicule)
+    public function getLeVehicule($idVehicule)
     {
         $requetePrepare = PdoGsb::$monPdo->prepare(
             'SELECT vehicules.id as id, vehicules.libelle as libelle, '
@@ -215,7 +215,7 @@ class PdoGsb {
         );
         $requetePrepare->bindParam(':idVehicule', $idVehicule, PDO::PARAM_STR);
         $requetePrepare->execute();
-        return $requetePrepare->fetchAll();
+        return $requetePrepare->fetch();
     }
     
     /**
@@ -752,6 +752,7 @@ class PdoGsb {
                 . 'fichefrais.datemodif as dateModif,'
                 . 'fichefrais.nbjustificatifs as nbJustificatifs, '
                 . 'fichefrais.montantvalide as montantValide, '
+                . 'fichefrais.idvehicule as idvehicule, '
                 . 'etat.libelle as libEtat '
                 . 'FROM fichefrais '
                 . 'INNER JOIN etat ON fichefrais.idetat = etat.id '
