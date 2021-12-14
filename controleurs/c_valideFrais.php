@@ -78,20 +78,37 @@ switch ($action) {
                 $pdo->annulerFraisHorsForfait($idVisiteur, $leMois, $libelle, $idHorsForfait);
             }
             
-        } elseif ($action == 'valideFiche'){
-            $pdo->majEtatFicheFrais($idVisiteur, $leMois, "VA");
-            break;
         }
         $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
         $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
         $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
+        if ($action == 'valideFiche'){
+            $leVehicule = $pdo->getLeVehicule($lesInfosFicheFrais['idvehicule']);
+            $montantValide = 0;
+            foreach($lesFraisForfait as $unFraisForfait){
+                if($unFraisForfait['idfrais']!= 'KM'){
+                    $montantValide += $unFraisForfait['montantunitaire'] * $unFraisForfait['quantite'];
+                }
+                else {
+                    $montantValide += $unFraisForfait['quantite'] * $leVehicule['prixkm'];
+                }
+                
+            }
+            foreach($lesFraisHorsForfait as $unFraisHorsForfait){
+                $montantValide += $unFraisHorsForfait['montant'];
+            }
+            $pdo->majMontantValide($idVisiteur, $leMois, (string)$montantValide);
+            $pdo->majEtatFicheFrais($idVisiteur, $leMois, "VA");
+            break;
+        }
+        
         $numAnnee = substr($leMois, 0, 4);
         $numMois = substr($leMois, 4, 2);
         $libEtat = $lesInfosFicheFrais['libEtat'];
-        $montantValide = $lesInfosFicheFrais['montantValide'];
         $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
         $dateModif = dateAnglaisVersFrancais($lesInfosFicheFrais['dateModif']);
         include 'vues/v_valideFrais.php';
         break;
+        
 }
    
