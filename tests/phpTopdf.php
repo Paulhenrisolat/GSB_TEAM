@@ -13,7 +13,6 @@ class PDF extends FPDF {
         
         //BDD
         $pdo = PdoGsb::getPdoGsb();
-
         //Nom et prénom du visiteur
         $infosVisiteur = $pdo->getNomPrenomVisiteur($idVisiteur);
         $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
@@ -165,5 +164,5 @@ $pdf->AddPage();
 
 //sortie
 $pdfName = 'RemboursementFrais_' . $infosVisiteur['prenom'] . $infosVisiteur['nom'] . '_' . date('d.m.Y') . '.pdf';
-$pdf->Output('D', $pdfName);
+$pdf->Output($pdfName, 'D');
 
