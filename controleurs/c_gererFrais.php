@@ -22,17 +22,24 @@ $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 switch ($action) {
 case 'saisirFrais':
     $lesVehicules = $pdo->getLesVehicules();
-    $vehiculeASelectionner = $lesVehicules['0'];
     if ($pdo->estPremierFraisMois($idVisiteur, $mois)) {
         $pdo->creeNouvellesLignesFrais($idVisiteur, $mois);
+        $premierVehicule = $lesVehicules['0'];
+        $vehiculeASelectionner = $premierVehicule['id'];
+    }
+    else {
+        $premierVehicule = $pdo->getLesInfosFicheFrais($idVisiteur, $mois);
+        $vehiculeASelectionner = $premierVehicule['idvehicule'];
     }
     break;
 case 'validerMajFraisForfait':
     $lesFrais = filter_input(INPUT_POST, 'lesFrais', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
-    $leVehicule = filter_input(INPUT_POST, 'vehicule', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
+    $leVehicule = filter_input(INPUT_POST, 'vehicule', FILTER_SANITIZE_STRING);
+    $lesVehicules = $pdo->getLesVehicules();
+    $vehiculeASelectionner = $leVehicule;
     if (lesQteFraisValides($lesFrais)) {
         $pdo->majFraisForfait($idVisiteur, $mois, $lesFrais);
-        $pdo->majFicheVehicule($idVisiteur, $mois, $leVehicule['id']);
+        $pdo->majFicheVehicule($idVisiteur, $mois, $leVehicule);
     } else {
         ajouterErreur('Les valeurs des frais doivent être numériques');
         include 'vues/v_erreurs.php';

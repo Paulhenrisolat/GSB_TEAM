@@ -20,7 +20,8 @@
         <?php echo $numMois . '-' . $numAnnee ?> : </div>
     <div class="panel-body">
         <strong><u>Etat :</u></strong> <?php echo $libEtat ?>
-        depuis le <?php echo $dateModif ?> <br> 
+        depuis le <?php echo $dateModif ?> <br>
+        <strong><u>Véhicule saisi :</u></strong> <?php echo $leVehicule['libelle'] ?> <br>
         <strong><u>Montant validé :</u></strong> <?php echo $montantValide ?>
     </div>
 </div>

@@ -45,7 +45,7 @@
                     <select id="idVehicule" name="vehicule" class="form-control">
                     <?php
                     foreach ($lesVehicules as $unVehicule) {
-                        if ($vehiculeASelectionner == $unVehicule) {
+                        if ($vehiculeASelectionner == $unVehicule['id']) {
                             ?>
                             <option selected value="<?php echo $unVehicule['id']?>">
                                 <?php echo $unVehicule['libelle'] ?> </option>
