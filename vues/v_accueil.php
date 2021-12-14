@@ -46,7 +46,7 @@
                             <br>Afficher mes fiches de frais</a>
                         <?php } else { ?>
                         <!-- Comptable -->
-                        <a href="index.php?uc=validationFrais"
+                        <a href="index.php?uc=validationFrais&action=chercheNom"
                            class="btn btn-success btn-lg" role="button">
                             <span class="glyphicon glyphicon-ok-circle"></span>
                             <br>Validation des fiches de frais</a>
