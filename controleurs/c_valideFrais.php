@@ -93,7 +93,9 @@ case 'voirEtatFrais' || 'actualisationFraisForfaitises' || 'actualisationFraisHo
             }     
         }
         foreach($lesFraisHorsForfait as $unFraisHorsForfait){
+            if(!preg_match("/^(REFUSER:)/",$unFraisHorsForfait['libelle'])){
             $montantValide += $unFraisHorsForfait['montant'];
+            }
         }
         $pdo->majMontantValide($idVisiteur, $leMois, (string)$montantValide);
         $pdo->majEtatFicheFrais($idVisiteur, $leMois, "VA");
