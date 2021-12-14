@@ -26,17 +26,22 @@
         <link href="./styles/style.css" rel="stylesheet">
         <link rel="icon" href="favicon.ico"/>
         <!-- Couleur Connexion (isset)-->
-        <?php if (isset($_SESSION['codeA2F'])) {
+        <?php
+        if (isset($_SESSION['codeA2F'])) {
             if ($_SESSION['statut'] == 'Comptable') { ?>
                 <link href="../styles/bootstrap/bootstrapComptable.css" rel="stylesheet" type="text/css"/>
             <?php
-            } else { ?>
+            } else {
+                ?>
                 <link href="../styles/bootstrap/bootstrap.css" rel="stylesheet" type="text/css"/>
-            <?php }
-        } else { ?>
+            <?php
+            }
+        } else {
+            ?>
             <link href="../styles/bootstrap/bootstrap.css" rel="stylesheet" type="text/css"/>
-        <?php } ?>
-        <!-- fin -->
+        <?php
+        }
+        ?>
     </head>
     <body>
         <div class="container">
@@ -98,9 +103,7 @@
                         </div>
                     </div>
                 </div>
-                <?php
-            } else {
-                ?>   
+            <?php } else { ?>
                 <h1>
                     <img src="./images/logo.jpg"
                          class="img-responsive center-block"

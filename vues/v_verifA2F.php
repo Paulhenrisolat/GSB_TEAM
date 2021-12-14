@@ -1,4 +1,6 @@
-<?php ?>
+<?php
+
+?>
 
 <div class="alert alert-info" role="alert">Un email contenant un code à 6 chiffres vous a été envoyé, merci de le saisir ici...</div>
 <div class="row">

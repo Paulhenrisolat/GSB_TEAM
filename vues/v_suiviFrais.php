@@ -70,13 +70,3 @@
 	<input type="hidden" value="<?php echo $infosFiche ?>" name="infosFicheFrais">
     </div>
 </form>
-
-<!-- PDF -->
-<form action="tests/phpTopdf.php" method="post" role="form" target="_blank">
-    <div class="form-group">
-        <label for="PDF" accesskey="n" />
-        <input id="ok" type="submit" value="PDF" class="btn btn-success" 
-            role="button">
-	<input type="hidden" value="<?php echo $infosFiche ?>" name="infosFicheFraisPDF">
-    </div>
-</form>

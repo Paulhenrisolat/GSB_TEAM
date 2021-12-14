@@ -13,10 +13,8 @@
  * @version   GIT: <0>
  * @link      http://www.reseaucerta.org Contexte « Laboratoire GSB »
  */
-
-
-
 ?>
+
 <div id="accueil">
     <h2>
         Gestion des frais<small> -
@@ -57,10 +55,6 @@
                             <span class="glyphicon glyphicon-search"></span>
                             <br>Suivi du paiement des fiches de frais</a>
                         <?php } ?>
-<!--                    <a href="index.php?uc=verifMail"
-                           class="btn btn-primary btn-lg" role="button">
-                            <span class="glyphicon glyphicon-eye-open"></span>
-                            <br>[TestVerifMail]</a>-->
                     </div>
                 </div>
             </div>
