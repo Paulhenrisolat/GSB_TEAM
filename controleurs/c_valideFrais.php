@@ -19,15 +19,28 @@ $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 switch ($action) {
 case 'chercheNom':
     $lesInfosVisiteurs = $pdo->getLesVisiteursCL();
-    include 'vues/v_listeVisiteursValidation.php';
+    if($lesInfosVisiteurs) {
+        include 'vues/v_listeVisiteursValidation.php';
+    }
+    else {
+        ajouterMessage("Il n'y a pas de visiteurs dont la fiche est à valider.");
+        include 'vues/v_messages.php';
+    }
     break;
 case 'chercheMois':
     $idVisiteur = filter_input(INPUT_POST, 'idVisiteur', FILTER_SANITIZE_STRING);
     $lesMois = $pdo->getLesMoisDisponiblesCL($idVisiteur);
     $idASelectionner = $idVisiteur;
     $lesInfosVisiteurs = $pdo->getLesVisiteursCL();
-    include 'vues/v_listeVisiteursValidation.php';
-    include 'vues/v_listeMoisValidation.php';
+    if($lesMois) {
+        include 'vues/v_listeVisiteursValidation.php';
+        include 'vues/v_listeMoisValidation.php';
+    }
+    else {
+        ajouterMessage("Il n'y a pas de fiches de frais à valider pour ce visiteur.");
+        include 'vues/v_messages.php';
+        include 'vues/v_listeVisiteursValidation.php';
+    }
     break;
 case 'voirEtatFrais' || 'actualisationFraisForfaitises' || 'actualisationFraisHorsForfait' || 'valideFiche':
     $infosFiche = filter_input(INPUT_POST, 'infosFicheFrais', FILTER_SANITIZE_STRING);
