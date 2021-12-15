@@ -1274,6 +1274,7 @@ h2,
 h3,
 .h3 {
   font-size: 24px;
+  color: black;
 }
 h4,
 .h4 {
@@ -1343,6 +1344,7 @@ mark,
 a.text-primary:hover,
 a.text-primary:focus {
   color: #286090;
+  color: #9C4C00;
 }
 .text-success {
   color: #3c763d;
@@ -1357,6 +1359,7 @@ a.text-success:focus {
 a.text-info:hover,
 a.text-info:focus {
   color: #245269;
+  color: #9C4C00;
 }
 .text-warning {
   color: #8a6d3b;

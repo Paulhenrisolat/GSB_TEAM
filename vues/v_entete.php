@@ -26,17 +26,22 @@
         <link href="./styles/style.css" rel="stylesheet">
         <link rel="icon" href="favicon.ico"/>
         <!-- Couleur Connexion (isset)-->
-        <?php if (isset($_SESSION['codeA2F'])) {
+        <?php
+        if (isset($_SESSION['codeA2F'])) {
             if ($_SESSION['statut'] == 'Comptable') { ?>
                 <link href="../styles/bootstrap/bootstrapComptable.css" rel="stylesheet" type="text/css"/>
             <?php
-            } else { ?>
+            } else {
+                ?>
                 <link href="../styles/bootstrap/bootstrap.css" rel="stylesheet" type="text/css"/>
-            <?php }
-        } else { ?>
+            <?php
+            }
+        } else {
+            ?>
             <link href="../styles/bootstrap/bootstrap.css" rel="stylesheet" type="text/css"/>
-        <?php } ?>
-        <!-- fin -->
+        <?php
+        }
+        ?>
     </head>
     <body>
         <div class="container">
@@ -61,7 +66,7 @@
                                         Accueil
                                     </a>
                                 </li>
-    <?php if ($_SESSION['statut'] == 'Visiteur') { ?>
+                                <?php if ($_SESSION['statut'] == 'Visiteur') { ?>
                                     <li <?php if ($uc == 'gererFrais') { ?>class="active"<?php } ?>>
                                         <a href="index.php?uc=gererFrais&action=saisirFrais">
                                             <span class="glyphicon glyphicon-pencil"></span>
@@ -74,7 +79,7 @@
                                             Afficher mes fiches de frais
                                         </a>
                                     </li>
-    <?php } else { ?>
+                                <?php } else { ?>
                                     <li <?php if ($uc == 'validationFrais') { ?>class="active"<?php } ?>>
                                         <a href="index.php?uc=validationFrais&action=chercheNom">
                                             <span class="glyphicon glyphicon-ok-circle"></span>
@@ -87,15 +92,8 @@
                                             Suivi du paiement des fiches de frais
                                         </a>
                                     </li>
-    <?php } ?>
-                                <li <?php if ($uc == 'mail') { ?>class="active"<?php } ?>>
-                                    <a href="index.php?uc=mail">
-                                        <span class="glyphicon glyphicon-envelope"></span>
-                                        Mail
-                                    </a>
-                                </li>
-                                <li 
-    <?php if ($uc == 'deconnexion') { ?>class="active"<?php } ?>>
+                                <?php } ?>         
+                                <li <?php if ($uc == 'deconnexion') { ?>class="active"<?php } ?>>
                                     <a href="index.php?uc=deconnexion&action=demandeDeconnexion">
                                         <span class="glyphicon glyphicon-log-out"></span>
                                         Déconnexion
@@ -105,9 +103,7 @@
                         </div>
                     </div>
                 </div>
-                <?php
-            } else {
-                ?>   
+            <?php } else { ?>
                 <h1>
                     <img src="./images/logo.jpg"
                          class="img-responsive center-block"
