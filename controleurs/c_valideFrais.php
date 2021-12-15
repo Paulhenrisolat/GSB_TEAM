@@ -83,7 +83,7 @@ case 'voirEtatFrais' || 'actualisationFraisForfaitises' || 'actualisationFraisHo
             $infosFiche = ($leMois . '-' . $idVisiteur);
             $libelle = filter_input(INPUT_POST, 'libelle', FILTER_SANITIZE_STRING);
             $pdo->refuserFraisHorsForfait($idVisiteur, $leMois, $libelle, $idHorsForfait);
-        } elseif($bouton == "Annuler") {
+        } elseif($bouton == "Rétablir") {
             list($leMois, $idVisiteur, $idHorsForfait) = explode('-', $infosFiche);
             $infosFiche = ($leMois . '-' . $idVisiteur);
             $libelle = filter_input(INPUT_POST, 'libelle', FILTER_SANITIZE_STRING);
