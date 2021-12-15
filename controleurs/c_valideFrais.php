@@ -49,8 +49,7 @@ case 'voirEtatFrais' || 'actualisationFraisForfaitises' || 'actualisationFraisHo
     $moisASelectionner = $leMois;
     $lesInfosVisiteurs = $pdo->getLesVisiteursCL();
     $lesMois = $pdo->getLesMoisDisponiblesCL($idVisiteur);
-    include 'vues/v_listeVisiteursValidation.php';
-    include 'vues/v_listeMoisValidation.php';
+    
     if ($action == 'actualisationFraisForfaitises') {
         $listFrais = filter_input(INPUT_POST, 'lesFrais', FILTER_DEFAULT, FILTER_FORCE_ARRAY);
         if (lesQteFraisValides($listFrais)) {
@@ -112,8 +111,20 @@ case 'voirEtatFrais' || 'actualisationFraisForfaitises' || 'actualisationFraisHo
         }
         $pdo->majMontantValide($idVisiteur, $leMois, (string)$montantValide);
         $pdo->majEtatFicheFrais($idVisiteur, $leMois, "VA");
+        $lesInfosVisiteurs = $pdo->getLesVisiteursCL();
+        ajouterMessage('Fiche validée');
+        if($lesInfosVisiteurs) {
+            include 'vues/v_listeVisiteursValidation.php';
+            include 'vues/v_messages.php';
+        }
+        else {
+             ajouterMessage("Il n'y a plus de visiteur à valider.");
+             include 'vues/v_messages.php';
+        }
         break;
     }
+    include 'vues/v_listeVisiteursValidation.php';
+    include 'vues/v_listeMoisValidation.php';
     $numAnnee = substr($leMois, 0, 4);
     $numMois = substr($leMois, 4, 2);
     $libEtat = $lesInfosFicheFrais['libEtat'];
