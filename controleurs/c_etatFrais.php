@@ -48,4 +48,5 @@ case 'toPdf':
     $infosFichePDF = filter_input(INPUT_POST, 'infosFicheFraisPDF', FILTER_SANITIZE_STRING);
     list($idVisiteur, $leMois) = explode('-', $infosFichePDF);
     include 'tests/phpTopdf.php';
+    break;
 }
