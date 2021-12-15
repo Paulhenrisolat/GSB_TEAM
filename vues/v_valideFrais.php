@@ -52,7 +52,7 @@
                                    role="button">
                             <input type="hidden" value="<?php echo $infosFiche."-".$id ?>" name="infosFicheFrais">
                             <?php if(preg_match("/^(REFUSER:)/",$unFraisHorsForfait['libelle'])){ ?>
-                                <input id="annuler" name="bouton" type="submit" value="Annuler" class="btn btn-info" 
+                                <input id="annuler" name="bouton" type="submit" value="Rétablir" class="btn btn-info" 
                                        role="button">
                             <?php }else{ ?>
                                 <input id="refuser" name="bouton" type="submit" value="Refuser" class="btn btn-info" 
