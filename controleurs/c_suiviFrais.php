@@ -55,8 +55,8 @@ case 'miseEnPaiement':
     $lesFiches = $pdo->getLesFichesVA();
     $lesMois = $pdo->getLesMoisFichesVA();
     ajouterMessage('La fiche a bien été mise en paiement.');
-    include 'vues/v_messages.php';
     if($lesMois) {
+        include 'vues/v_messages.php';
         include 'vues/v_listeFichesVA.php';
         include 'vues/v_paiementFichesMois.php';
     }
@@ -71,8 +71,8 @@ case 'miseEnPaiementFichesMois':
     $lesFiches = $pdo->getLesFichesVA();
     $lesMois = $pdo->getLesMoisFichesVA();
     ajouterMessage('Les fiches de ce mois ont bien été mises en paiement.');
-    include 'vues/v_messages.php';
     if($lesMois) {
+        include 'vues/v_messages.php';
         include 'vues/v_listeFichesVA.php';
         include 'vues/v_paiementFichesMois.php';
     }
