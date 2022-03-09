@@ -1,0 +1,13 @@
+{
+    "name": "vendor/gsb-ppe",
+    "description": "Description of project gsb-ppe.",
+    "authors": [
+        {
+            "name": "nicolas.preaux",
+            "email": "your@email.here"
+        }
+    ],
+    "require": {
+        "phpunit/phpunit": "9.5.15"
+    }
+}

@@ -18,7 +18,15 @@ $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 switch ($action) {
 case 'selectionnerFiche':
     $lesFiches = $pdo->getLesFichesVA();
-    include 'vues/v_listeFichesVA.php';
+    $lesMois = $pdo->getLesMoisFichesVA();
+    if($lesMois) {
+        include 'vues/v_listeFichesVA.php';
+        include 'vues/v_paiementFichesMois.php';
+    }
+    else {
+        ajouterMessage("Il n'y a pas de visiteurs dont la fiche est à mettre en paiement.");
+        include 'vues/v_messages.php';
+    }
     break;
 case 'voirSuiviFrais':
     $infosFiche = filter_input(INPUT_POST, 'lstFiche', FILTER_SANITIZE_STRING);
@@ -45,8 +53,32 @@ case 'miseEnPaiement':
     list($idVisiteur, $leMois) = explode('-', $infosFiche);
     $pdo->majEtatFicheFrais($idVisiteur, $leMois, 'RB');
     $lesFiches = $pdo->getLesFichesVA();
+    $lesMois = $pdo->getLesMoisFichesVA();
     ajouterMessage('La fiche a bien été mise en paiement.');
     include 'vues/v_messages.php';
-    include 'vues/v_listeFichesVA.php';
+    if($lesMois) {
+        include 'vues/v_listeFichesVA.php';
+        include 'vues/v_paiementFichesMois.php';
+    }
+    else {
+        ajouterMessage("Il n'y a pas de visiteurs dont la fiche est à mettre en paiement.");
+        include 'vues/v_messages.php';
+    }
+    break;
+case 'miseEnPaiementFichesMois':
+    $leMois = filter_input(INPUT_POST, 'moisFiches', FILTER_SANITIZE_STRING);
+    $pdo->majEtatListeFichesFrais($leMois, 'RB');
+    $lesFiches = $pdo->getLesFichesVA();
+    $lesMois = $pdo->getLesMoisFichesVA();
+    ajouterMessage('Les fiches de ce mois ont bien été mises en paiement.');
+    include 'vues/v_messages.php';
+    if($lesMois) {
+        include 'vues/v_listeFichesVA.php';
+        include 'vues/v_paiementFichesMois.php';
+    }
+    else {
+        ajouterMessage("Il n'y a pas de visiteurs dont la fiche est à mettre en paiement.");
+        include 'vues/v_messages.php';
+    }
     break;
 }

@@ -735,6 +735,23 @@ class PdoGsb {
         }
         return $lesFiches;
     }
+    
+    /**
+     * Retourne le mois des fiches à valider et mettre en paiement des visiteurs
+     *
+     * @return les mois des fiches à valider et mettre en paiement sous la forme d'un tableau
+     */
+    public function getLesMoisFichesVA() {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+                'SELECT DISTINCT fichefrais.mois as mois '
+                . 'FROM fichefrais '
+                . 'WHERE fichefrais.idetat = :idEtat '
+                . 'ORDER BY fichefrais.mois desc'
+        );
+        $requetePrepare->bindValue(':idEtat', 'VA', PDO::PARAM_STR);
+        $requetePrepare->execute();
+        return $requetePrepare->fetchAll();
+    }
 
     /**
      * Retourne les informations d'une fiche de frais d'un visiteur pour un
@@ -765,7 +782,8 @@ class PdoGsb {
         $laLigne = $requetePrepare->fetch();
         return $laLigne;
     }
-
+    
+    
     /**
      * Modifie l'état et la date de modification d'une fiche de frais.
      * Modifie le champ idEtat et met la date de modif à aujourd'hui.
@@ -785,6 +803,27 @@ class PdoGsb {
         );
         $requetePrepare->bindParam(':unEtat', $etat, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
+        $requetePrepare->execute();
+    }
+    
+    /**
+     * Modifie l'état et la date de modification d'une fiche de frais.
+     * Modifie le champ idEtat et met la date de modif à aujourd'hui.
+     *
+     * @param String $idVisiteur ID du visiteur
+     * @param String $mois       Mois sous la forme aaaamm
+     * @param String $etat       Nouvel état de la fiche de frais
+     *
+     * @return null
+     */
+    public function majEtatListeFichesFrais($mois, $etat) {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+                'UPDATE ficheFrais '
+                . 'SET idetat = :unEtat, datemodif = now() '
+                . 'WHERE fichefrais.mois = :unMois'
+        );
+        $requetePrepare->bindParam(':unEtat', $etat, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
         $requetePrepare->execute();
     }

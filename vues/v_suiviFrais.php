@@ -70,3 +70,11 @@
 	<input type="hidden" value="<?php echo $infosFiche ?>" name="infosFicheFrais">
     </div>
 </form>
+<form action="index.php?uc=suiviFrais&action=selectionnerFiche" 
+      method="post" role="form">
+    <div class="form-group">
+        <label for="retourListeFrais" accesskey="n" />
+        <input id="ok" type="submit" value="Retour" class="btn btn-secondary" 
+            role="button">
+    </div>
+</form
