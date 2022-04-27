@@ -45,8 +45,11 @@ case 'voirEtatFrais':
     include 'vues/v_etatFrais.php';
     break;
 case 'toPdf':
+    if($a==10){
     $infosFichePDF = filter_input(INPUT_POST, 'infosFicheFraisPDF', FILTER_SANITIZE_STRING);
     list($idVisiteur, $leMois) = explode('-', $infosFichePDF);
+    }else{
     include 'tests/phpTopdf.php';
+    }
     break;
 }

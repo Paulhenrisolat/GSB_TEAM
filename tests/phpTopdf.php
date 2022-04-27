@@ -1,5 +1,4 @@
 <?php
-
 require 'fpdpf/fpdf.php';
 require_once 'includes/class.pdogsb.inc.php';
 require_once 'includes/fct.inc.php';

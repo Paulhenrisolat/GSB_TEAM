@@ -79,7 +79,7 @@
     <div class="form-group">
         <label for="PDF" accesskey="n" />
         <input id="ok" type="submit" value="Télécharger PDF" class="btn btn-warning" role="button">
-	<input type="hidden" value="<?php echo $infosFiche ?>" name="infosFicheFrais">
+	<!--<input type="hidden" value="<?php echo $infosFiche ?>" name="infosFicheFrais">-->
     </div>
 </form>
 <?php } ?>
