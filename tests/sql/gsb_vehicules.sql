@@ -3,8 +3,7 @@ CREATE TABLE vehicules (
   libelle VARCHAR(15) NOT NULL,
   prixkm DECIMAL(3,2) NOT NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+ENGINE = InnoDB;
 
 INSERT INTO vehicules (id, libelle, prixkm) VALUES
 ('4CV-D', '4CV Diesel', 0.52),

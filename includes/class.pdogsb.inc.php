@@ -574,8 +574,8 @@ class PdoGsb {
         }
         $requetePrepare = PdoGsb::$monPdo->prepare(
                 'INSERT INTO fichefrais (idvisiteur,mois,nbjustificatifs,'
-                . 'montantvalide,datemodif,idetat) '
-                . "VALUES (:unIdVisiteur,:unMois,0,0,now(),'CR')"
+                . 'montantvalide,datemodif,idetat,idvehicule) '
+                . "VALUES (:unIdVisiteur,:unMois,0,0,now(),'CR','4CV-E')"
         );
         $requetePrepare->bindParam(':unIdVisiteur', $idVisiteur, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMois', $mois, PDO::PARAM_STR);
