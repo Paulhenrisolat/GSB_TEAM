@@ -184,7 +184,9 @@ switch ($action) {
             include 'vues/v_messages.php';
         }
         break;
+        
     default:
-        ajouterMessage("Erreur, page non trouvé.");
+        ajouterMessage("Erreur, fonction non trouvé.");
         include 'vues/v_messages.php';
+        break;
 }
