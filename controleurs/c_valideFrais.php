@@ -99,44 +99,49 @@ switch ($action) {
         $lesInfosVisiteurs = $pdo->getLesVisiteursCL();
         $lesMois = $pdo->getLesMoisDisponiblesCL($idVisiteur);
         $bouton = filter_input(INPUT_POST, 'bouton');
-        if ($bouton == "Corriger") {
-            $montant = filter_input(INPUT_POST, 'montant', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-            $libelle = filter_input(INPUT_POST, 'libelle', FILTER_SANITIZE_STRING);
-            $date = filter_input(INPUT_POST, 'date', FILTER_SANITIZE_STRING);
-            list($jour, $mois, $annee) = explode('/', $date);
-            $date = $annee . '-' . $mois . '-' . $jour;
-            if (preg_match("^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$^", $date) && estFloatPositif($montant) == true) {
-                $pdo->majFraisHorsForfait($idVisiteur, $leMois, $date, $libelle, $montant, $idHorsForfait);
-                ajouterMessage('Modification pris en compte');
-            } else {
-                ajouterMessage('Les valeurs entrées ne sont pas correct');
-            }
-            include 'vues/v_messages.php';
-        } elseif ($bouton == "Refuser") {
-            $libelle = filter_input(INPUT_POST, 'libelle', FILTER_SANITIZE_STRING);
-            $pdo->refuserFraisHorsForfait($idVisiteur, $leMois, $libelle, $idHorsForfait);
-        } elseif ($bouton == "Rétablir") {
-            $libelle = filter_input(INPUT_POST, 'libelle', FILTER_SANITIZE_STRING);
-            $pdo->annulerFraisHorsForfait($idVisiteur, $leMois, $libelle, $idHorsForfait);
-        } elseif ($bouton == "Reporter") {
-            $lemois = str_split($leMois, 4);
-            $libelle = filter_input(INPUT_POST, 'libelle', FILTER_SANITIZE_STRING);
-            $date = filter_input(INPUT_POST, 'date', FILTER_SANITIZE_STRING);
-            $montant = filter_input(INPUT_POST, 'montant', FILTER_SANITIZE_STRING);
-            if ($pdo->dernierMoisSaisi($idVisiteur) == $leMois) {
-                if ($lemois[1] == '12') {
-                    $lemois = $lemois[0] + 1 . '01';
+        switch ($bouton) {
+            case 'Corriger':
+                $montant = filter_input(INPUT_POST, 'montant', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+                $libelle = filter_input(INPUT_POST, 'libelle', FILTER_SANITIZE_STRING);
+                $date = filter_input(INPUT_POST, 'date', FILTER_SANITIZE_STRING);
+                list($jour, $mois, $annee) = explode('/', $date);
+                $date = $annee . '-' . $mois . '-' . $jour;
+                if (preg_match("^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$^", $date) && estFloatPositif($montant) == true) {
+                    $pdo->majFraisHorsForfait($idVisiteur, $leMois, $date, $libelle, $montant, $idHorsForfait);
+                    ajouterMessage('Modification pris en compte');
                 } else {
-                    $lemois = $lemois[0] . ($lemois[1] + 1);
+                    ajouterMessage('Les valeurs entrées ne sont pas correct');
                 }
-                $pdo->creeNouvellesLignesFrais($idVisiteur, $lemois);
-                $pdo->creeNouveauFraisHorsForfait($idVisiteur, $lemois, $libelle, $date, $montant);
-                $pdo->supprimerFraisHorsForfait($idHorsForfait);
-            } else {
-                $lemois = $pdo->dernierMoisSaisi($idVisiteur);
-                $pdo->creeNouveauFraisHorsForfait($idVisiteur, $lemois, $libelle, $date, $montant);
-                $pdo->supprimerFraisHorsForfait($idHorsForfait);
-            }
+                include 'vues/v_messages.php';
+                break;
+            case 'Refuser':
+                $libelle = filter_input(INPUT_POST, 'libelle', FILTER_SANITIZE_STRING);
+                $pdo->refuserFraisHorsForfait($idVisiteur, $leMois, $libelle, $idHorsForfait);
+                break;
+            case 'Rétablir':
+                $libelle = filter_input(INPUT_POST, 'libelle', FILTER_SANITIZE_STRING);
+                $pdo->annulerFraisHorsForfait($idVisiteur, $leMois, $libelle, $idHorsForfait);
+                break;
+            case 'Reporter':
+                $lemois = str_split($leMois, 4);
+                $libelle = filter_input(INPUT_POST, 'libelle', FILTER_SANITIZE_STRING);
+                $date = filter_input(INPUT_POST, 'date', FILTER_SANITIZE_STRING);
+                $montant = filter_input(INPUT_POST, 'montant', FILTER_SANITIZE_STRING);
+                if ($pdo->dernierMoisSaisi($idVisiteur) == $leMois) {
+                    if ($lemois[1] == '12') {
+                        $lemois = $lemois[0] + 1 . '01';
+                    } else {
+                        $lemois = $lemois[0] . ($lemois[1] + 1);
+                    }
+                    $pdo->creeNouvellesLignesFrais($idVisiteur, $lemois);
+                    $pdo->creeNouveauFraisHorsForfait($idVisiteur, $lemois, $libelle, $date, $montant);
+                    $pdo->supprimerFraisHorsForfait($idHorsForfait);
+                } else {
+                    $lemois = $pdo->dernierMoisSaisi($idVisiteur);
+                    $pdo->creeNouveauFraisHorsForfait($idVisiteur, $lemois, $libelle, $date, $montant);
+                    $pdo->supprimerFraisHorsForfait($idHorsForfait);
+                }
+                break;
         }
         $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
         $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
@@ -184,7 +189,7 @@ switch ($action) {
             include 'vues/v_messages.php';
         }
         break;
-        
+
     default:
         ajouterMessage("Erreur, fonction non trouvé.");
         include 'vues/v_messages.php';
