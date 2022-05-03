@@ -75,11 +75,11 @@
 <!-- PDF -->
 <!-- si montant validée-->
 <?php if($lesInfosFicheFrais['idEtat'] == 'RB') { ?>
-<form action="index.php?uc=etatFrais&action=toPdf" method="post" role="form">
+<form action="index.php?uc=fraisPdf&action=generatePdf" method="post" role="form" target="_blank" rel="noreferrer">
     <div class="form-group">
         <label for="PDF" accesskey="n" />
         <input id="ok" type="submit" value="Télécharger PDF" class="btn btn-warning" role="button">
-	<!--<input type="hidden" value="<?php echo $infosFiche ?>" name="infosFicheFrais">-->
+	<input type="hidden" value="<?php echo $infosFiche ?>" name="infosFicheFraisPDF">
     </div>
 </form>
 <?php } ?>

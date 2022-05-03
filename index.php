@@ -18,7 +18,6 @@ require_once 'includes/class.pdogsb.inc.php';
 session_start();
 $pdo = PdoGsb::getPdoGsb();
 $estConnecte = estConnecte();
-require 'vues/v_entete.php';
 $uc = filter_input(INPUT_GET, 'uc', FILTER_SANITIZE_STRING);
 if ($uc && !$estConnecte) {
     $uc = 'connexion';
@@ -27,12 +26,15 @@ if ($uc && !$estConnecte) {
 }
 switch ($uc) {
 case 'connexion':
+    require 'vues/v_entete.php';
     include 'controleurs/c_connexion.php';
     break;
 case 'accueil':
+    require 'vues/v_entete.php';
     include 'controleurs/c_accueil.php';
     break;
 case 'gererFrais':
+    require 'vues/v_entete.php';
     if ($_SESSION['statut'] == 'Visiteur') {
         include 'controleurs/c_gererFrais.php';
         break;
@@ -42,6 +44,7 @@ case 'gererFrais':
         break;
     }
 case 'etatFrais':
+    require 'vues/v_entete.php';
     if ($_SESSION['statut'] == 'Visiteur') {
         include 'controleurs/c_etatFrais.php';
         break;
@@ -51,6 +54,7 @@ case 'etatFrais':
         break;
     }
 case 'validationFrais':
+    require 'vues/v_entete.php';
     if ($_SESSION['statut'] == 'Comptable') {
         include 'controleurs/c_valideFrais.php';
         break;
@@ -60,6 +64,7 @@ case 'validationFrais':
         break;
     }
 case 'suiviFrais':
+    require 'vues/v_entete.php';
     if ($_SESSION['statut'] == 'Comptable') {
         include 'controleurs/c_suiviFrais.php';
         break;
@@ -68,7 +73,11 @@ case 'suiviFrais':
         header('Location: index.php');
         break;
     }
+case 'fraisPdf':
+    include 'controleurs/c_pdf.php';
+    break;
 case 'deconnexion':
+    require 'vues/v_entete.php';
     include 'controleurs/c_deconnexion.php';
     break;
 }
