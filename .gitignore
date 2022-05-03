@@ -2,3 +2,5 @@ nbproject/private
 tests/phpdoc/.phpdoc
 doc/
 vendor
+nbproject/private/private.properties
+nbproject/private/private.xml
