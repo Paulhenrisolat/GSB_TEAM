@@ -2,3 +2,4 @@ nbproject/private
 tests/phpdoc/.phpdoc
 doc/
 vendor
+nbproject/private/private.xml
