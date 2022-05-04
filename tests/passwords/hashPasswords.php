@@ -9,6 +9,7 @@ function getLesUtilisateurs($pdo)
 }
 
 $pdo = new PDO('mysql:host=localhost;dbname=gsb_frais', 'root', '');
+//$pdo = new PDO('mysql:host=localhost;dbname=gsb_frais', 'userGsb', 'secret');
 $pdo->query('SET CHARACTER SET utf8');
 
 $lesUtilisateurs = getLesUtilisateurs($pdo);
