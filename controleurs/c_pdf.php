@@ -33,7 +33,7 @@ switch ($action) {
         $pdf->AliasNbPages();
         $pdf->AddPage();
         //logo
-        $pdf->Image('tests/logo.jpg', 90, 6, 30);
+        $pdf->Image('images/logo.jpg', 90, 6, 30);
         //saut de ligne
         $pdf->Ln(26);
         //colorText
@@ -132,7 +132,7 @@ switch ($action) {
         $pdf->Cell(290, 20, "Fait à Paris, le " . date('d F Y'), 0, 0, 'C');
         $pdf->Ln(10);
         $pdf->Cell(269, 18, "Vu l'agent comptable", 0, 0, 'C');
-        $pdf->Image('tests/signatureComptable.jpg', 114, 260, 70);
+        $pdf->Image('images/signatureComptable.jpg', 114, 260, 70);
         //sortie
         $pdfName = 'RemboursementFrais_' . $infosVisiteur['prenom'] . $infosVisiteur['nom'] . '_' . $numMois . '-' . $numAnnee . '.pdf';
         $pdf->Output('D', $pdfName);

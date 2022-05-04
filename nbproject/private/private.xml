@@ -2,6 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/garam/OneDrive/Documents/GitHub/GSB_TEAM/controleurs/c_suiviFrais.php</file>
+            <file>file:/C:/Users/garam/OneDrive/Documents/GitHub/GSB_TEAM/controleurs/c_valideFrais.php</file>
+            <file>file:/C:/Users/garam/OneDrive/Documents/GitHub/GSB_TEAM/vues/v_valideFrais.php</file>
+            <file>file:/C:/Users/garam/OneDrive/Documents/GitHub/GSB_TEAM/vues/v_listeMois.php</file>
+            <file>file:/C:/Users/garam/OneDrive/Documents/GitHub/GSB_TEAM/vues/v_connexion.php</file>
+            <file>file:/C:/Users/garam/OneDrive/Documents/GitHub/GSB_TEAM/controleurs/c_etatFrais.php</file>
+            <file>file:/C:/Users/garam/OneDrive/Documents/GitHub/GSB_TEAM/includes/class.pdogsb.inc.php</file>
+            <file>file:/C:/Users/garam/OneDrive/Documents/GitHub/GSB_TEAM/vues/v_etatFrais.php</file>
+        </group>
     </open-files>
 </project-private>

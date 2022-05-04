@@ -1,9 +1,10 @@
-# GSB_TEAM
-Project en teamwork  GSB (Galaxy Swiss Bourdin) : Application métier de gestion des frais.
+# GSB
+Projet en teamwork - GSB (Galaxy Swiss Bourdin) : Application métier de gestion de fiches de frais.
 
 ### Description
-GSB est un site formulaire de gestion de frais, permetant de rentrer des fiche de frais avec plusieurs options, pour les faire valider ou non par un comptable, 
-pouvant être récupéré sous la forme d'un pdf.
+Galaxy Swiss Bourdin est un laboratoire pharmceutique, dont l'application permet à des comptables de gérer les fiches de frais de visiteurs médicaux de l'organisation.
+Un visiteur peut ainsi renseigner la fiche de frais du mois courant, ou encore choisir d'afficher ses différentes fiches de frais.
+Un comptable peut valider la fiche de frais d'un visiteur, ou encore choisir de suivre les fiches de frais d'un visiteur pour la mettre en paiement.
 
 ### Technologies Utilisées
 HTML / CSS / PHP / SQL / BOOTSTRAP

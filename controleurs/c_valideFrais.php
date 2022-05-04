@@ -131,7 +131,11 @@ switch ($action) {
                     if ($lemois[1] == '12') {
                         $lemois = $lemois[0] + 1 . '01';
                     } else {
-                        $lemois = $lemois[0] . ($lemois[1] + 1);
+                        if($lemois[1] >= '10'){
+                            $lemois = $lemois[0] . ($lemois[1] + 1);
+                        } else {
+                            $lemois = $lemois[0] . "0" . ($lemois[1] + 1);
+                        }
                     }
                     $pdo->creeNouvellesLignesFrais($idVisiteur, $lemois);
                     $pdo->creeNouveauFraisHorsForfait($idVisiteur, $lemois, $libelle, $date, $montant);
