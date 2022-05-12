@@ -92,6 +92,12 @@
                                             Suivi du paiement des fiches de frais
                                         </a>
                                     </li>
+                                    <li <?php if ($uc == 'tentativeIntrusion') { ?>class="active"<?php } ?>>
+                                        <a href="index.php?uc=tentativeIntrusion&action=afficherIntrusion">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                            Afficher les intrusions
+                                        </a>
+                                    </li>
                                 <?php } ?>         
                                 <li <?php if ($uc == 'deconnexion') { ?>class="active"<?php } ?>>
                                     <a href="index.php?uc=deconnexion&action=demandeDeconnexion">

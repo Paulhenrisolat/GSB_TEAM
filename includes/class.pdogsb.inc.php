@@ -296,6 +296,20 @@ class PdoGsb {
         $requetePrepare->execute();
         return $requetePrepare->fetchAll();
     }
+    
+    public function getLesIntrusions() {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+                'SELECT tentativeintrusion.horodatage as horodatage, '
+                . 'tentativeintrusion.login as login, '
+                . 'tentativeintrusion.pays as pays, '
+                . 'tentativeintrusion.navigateur as navigateur, '
+                . 'tentativeintrusion.os as os '
+                . 'FROM tentativeintrusion '
+                . 'ORDER BY tentativeintrusion.horodatage'
+        );
+        $requetePrepare->execute();
+        return $requetePrepare->fetchAll();
+    }
 
     /**
      * Retourne tous les id de la table FraisForfait
@@ -628,6 +642,25 @@ class PdoGsb {
         $requetePrepare->bindParam(':unLibelle', $libelle, PDO::PARAM_STR);
         $requetePrepare->bindParam(':uneDateFr', $dateFr, PDO::PARAM_STR);
         $requetePrepare->bindParam(':unMontant', $montant, PDO::PARAM_INT);
+        $requetePrepare->execute();
+    }
+    
+    public function ajouterNouvelleIntrusion(
+            $horodatage,
+            $login,
+            $pays,
+            $navigateur,
+            $os
+    ) {
+        $requetePrepare = PdoGSB::$monPdo->prepare(
+                'INSERT INTO tentativeintrusion(horodatage, login, pays, navigateur, os) '
+                . ' VALUES (:unHorodatage, :unLogin, :unPays, :unNavigateur,:unOS) '
+        );
+        $requetePrepare->bindParam(':unHorodatage', $horodatage, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unLogin', $login, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unPays', $pays, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unNavigateur', $navigateur, PDO::PARAM_STR);
+        $requetePrepare->bindParam(':unOS', $os, PDO::PARAM_STR);
         $requetePrepare->execute();
     }
 

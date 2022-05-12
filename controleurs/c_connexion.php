@@ -45,6 +45,13 @@ case 'valideConnexion':
         include 'vues/v_verifA2F.php';
     }
     else {
+        $horodatage = date('Y-m-d H:i:s');
+        //$pays = geoip_country_name_by_name($_SERVER['REMOTE_ADDR']);
+        $pays = 'France';
+        $infos = get_browser(null, true);
+        $navigateur = $infos['parent'];
+        $os = $infos['platform'];
+        $pdo->ajouterNouvelleIntrusion($horodatage, $login, $pays, $navigateur, $os);
         ajouterErreur('Login ou mot de passe incorrect');
         include 'vues/v_erreurs.php';
         include 'vues/v_connexion.php';

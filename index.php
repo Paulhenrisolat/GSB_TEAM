@@ -73,6 +73,16 @@ case 'suiviFrais':
         header('Location: index.php');
         break;
     }
+case 'tentativeIntrusion':
+    require 'vues/v_entete.php';
+    if ($_SESSION['statut'] == 'Comptable') {
+        include 'controleurs/c_intrusion.php';
+        break;
+    }
+    else {
+        header('Location: index.php');
+        break;
+    }
 case 'fraisPdf':
     include 'controleurs/c_pdf.php';
     break;

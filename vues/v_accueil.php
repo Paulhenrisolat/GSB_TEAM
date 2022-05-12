@@ -54,6 +54,10 @@
                            class="btn btn-primary btn-lg" role="button">
                             <span class="glyphicon glyphicon-search"></span>
                             <br>Suivi du paiement des fiches de frais</a>
+                        <a href="index.php?uc=tentativeIntrusion&action=afficherIntrusion"
+                           class="btn btn-primary btn-lg" role="button">
+                            <span class="glyphicon glyphicon-search"></span>
+                            <br>Afficher les intrusions</a>
                         <?php } ?>
                     </div>
                 </div>
